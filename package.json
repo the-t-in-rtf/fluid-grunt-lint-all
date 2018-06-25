@@ -1,5 +1,5 @@
 {
-    "name": "grunt-gpii-grunt-lint-all",
+    "name": "gpii-grunt-lint-all",
     "description": "A Grunt plugin to run all GPII lint checks.",
     "version": "1.0.0",
     "homepage": "https://github.com/GPII/gpii-grunt-lint-all",
