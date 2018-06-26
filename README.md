@@ -1,16 +1,16 @@
-# grunt-gpii-grunt-lintall
+# gpii-grunt-lint-all
 
 This grunt plugin provides a combined rollup command that runs all GPII lint checks. To add it to your package, use a
 command like:
 
 ```shell
-npm install grunt-gpii-grunt-lintall --save-dev
+npm install gpii-grunt-lint-all --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```javascript
-grunt.loadNpmTasks("grunt-gpii-grunt-lintall");
+grunt.loadNpmTasks("gpii-grunt-lint-all");
 ```
 
 Please note, as this package provides default configuration options for many commands, if you wish to override options
@@ -19,7 +19,7 @@ following example:
 
 ```javascript
 "use strict";
-grunt.loadNpmTasks("grunt-gpii-grunt-lintall");
+grunt.loadNpmTasks("gpii-grunt-lint-all");
 grunt.config.merge({
     eslint: {
         js: {
@@ -44,8 +44,8 @@ grunt.config.merge({
 });
 ```
 
-Once you have installed the plugin and updated your `Gruntfile.js`, you should be able to run the `lintall` command from
-the root of your repository, as in `grunt lintall`.
+Once you have installed the plugin and updated your `Gruntfile.js`, you should be able to run the `lint-all` command from
+the root of your repository, as in `grunt lint-all`.
 
 ## Configuring Individual Checks
 
@@ -65,4 +65,4 @@ documentation, see below:
 
 Please note that many of the above checks use our standard ESLint configuration, which is available in the
 [eslint-config-fluid](https://github.com/fluid-project/eslint-config-fluid).  You will need to follow the installation
-instructions in that package before you can run the above checks.
+instructions in that package before you run many of the above checks.

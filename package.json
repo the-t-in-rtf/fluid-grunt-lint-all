@@ -17,7 +17,7 @@
     "licenses": [
         {
             "type": "BSD-3-Clause",
-            "url": "https://github.com/GPII/gpii-grunt-lintall/blob/master/LICENSE-BSD-3-Clause"
+            "url": "https://github.com/GPII/gpii-grunt-lint-all/blob/master/LICENSE-BSD-3-Clause"
         }
     ],
     "engines": {

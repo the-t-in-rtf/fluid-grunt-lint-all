@@ -10,7 +10,7 @@ module.exports = function (grunt) {
             },
             md: {
                 options: {
-                    configFile: fluid.module.resolvePath("%gpii-grunt-lintall/.eslintrc-md.json")
+                    configFile: fluid.module.resolvePath("%gpii-grunt-lint-all/.eslintrc-md.json")
                 }
             }
         },
@@ -49,5 +49,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-markdownlint");
 
     // By default, lint and run all tests.
-    grunt.registerTask("lintall", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", ["eslint:js", "jsonlint", "json5lint", "markdownlint", "eslint:md", "mdjsonlint"]);
+    grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", ["eslint:js", "jsonlint", "json5lint", "markdownlint", "eslint:md", "mdjsonlint"]);
 };

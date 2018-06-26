@@ -1,6 +1,6 @@
 /*
 
-GPII Grunt Lintall Plugin
+GPII Grunt "Lint All" Plugin
 
 Copyright 2018 Raising the Floor International.
 
@@ -13,5 +13,5 @@ compliance with this License.
 
 var fluid = require("infusion");
 
-// Register this module so that people can reuse our configuration, etc. using `fluid.module.resolvePath("%gpii-grunt-lintall/path/to/content")`.
-fluid.module.register("gpii-grunt-lintall", __dirname, require);
+// Register this module so that people can reuse our configuration, etc. using `fluid.module.resolvePath("%gpii-grunt-lint-all/path/to/content")`.
+fluid.module.register("gpii-grunt-lint-all", __dirname, require);

@@ -7,12 +7,12 @@ var jqUnit = require("node-jqunit");
 
 var child_process = require("child_process");
 
-jqUnit.module("Tests for GPII grunt lintall plugin.");
+jqUnit.module("Tests for GPII grunt lint-all plugin.");
 
-fluid.registerNamespace("gpii.tests.grunt.lintall");
+fluid.registerNamespace("gpii.tests.grunt.lintAll");
 
-gpii.tests.grunt.lintall.runTests = function (testDefs) {
-    var cwd = fluid.module.resolvePath("%gpii-grunt-lintall");
+gpii.tests.grunt.lintAll.runTests = function (testDefs) {
+    var cwd = fluid.module.resolvePath("%gpii-grunt-lint-all");
     fluid.each(testDefs, function (testDef) {
         jqUnit.test(testDef.message, function () {
             jqUnit.expect(testDef.tasksToCheck.length);
@@ -40,27 +40,27 @@ gpii.tests.grunt.lintall.runTests = function (testDefs) {
     });
 };
 
-fluid.defaults("gpii.tests.grunt.lintall.runner", {
+fluid.defaults("gpii.tests.grunt.lintAll.runner", {
     gradeNames: ["fluid.component"],
-    tasksToCheck: ["eslint:js", "eslint:md", "json5lint", "mdjsonlint", "jsonlint", "markdownlint", "lintall"],
+    tasksToCheck: ["eslint:js", "eslint:md", "json5lint", "mdjsonlint", "jsonlint", "markdownlint", "lint-all"],
     testDefs: {
         good: {
             message: "Valid content should be reported as valid.",
             gruntFile: "tests-Gruntfile-good.js",
-            tasksToCheck: "{gpii.tests.grunt.lintall.runner}.options.tasksToCheck"
+            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
         },
         bad: {
             message: "Invalid content should be reported as invalid.",
             gruntFile: "tests-Gruntfile-bad.js",
             shouldBeInvalid: true,
-            tasksToCheck: "{gpii.tests.grunt.lintall.runner}.options.tasksToCheck"
+            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
         }
     },
     listeners: {
         "onCreate.runTests": {
-            funcName: "gpii.tests.grunt.lintall.runTests",
+            funcName: "gpii.tests.grunt.lintAll.runTests",
             args:     ["{that}.options.testDefs"]
         }
     }
 });
-gpii.tests.grunt.lintall.runner();
+gpii.tests.grunt.lintAll.runner();

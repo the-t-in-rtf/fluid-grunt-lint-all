@@ -1,7 +1,7 @@
 /*
- * grunt-gpii-grunt-lintall
+ * grunt-gpii-grunt-lint-all
  *
- * https://github.com/GPII/gpii-grunt-lintall
+ * https://github.com/GPII/gpii-grunt-lint-all
  *
  * Copyright (c) 2018 Raising the Floor International.
  *
