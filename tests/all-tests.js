@@ -19,7 +19,7 @@ gpii.tests.grunt.lintAll.runTests = function (testDefs) {
             fluid.each(testDef.tasksToCheck, function (task) {
                 var command = ["grunt", "--gruntfile", testDef.gruntFile, task].join(" ");
                 try {
-                    var result = child_process.execSync(command, { cwd: cwd});
+                    child_process.execSync(command, { cwd: cwd});
                     if (testDef.shouldBeInvalid) {
                         jqUnit.fail("The task '" + task + "' did not report invalid content.");
                     }
@@ -35,14 +35,14 @@ gpii.tests.grunt.lintAll.runTests = function (testDefs) {
                         jqUnit.fail("The task '" + task + "' should not have reported invalid content.");
                     }
                 }
-            })
+            });
         });
     });
 };
 
 fluid.defaults("gpii.tests.grunt.lintAll.runner", {
     gradeNames: ["fluid.component"],
-    tasksToCheck: ["eslint:js", "eslint:md", "json5lint", "mdjsonlint", "jsonlint", "markdownlint", "lint-all"],
+    tasksToCheck: ["eslint:js", "eslint:md", "json5lint", "mdjsonlint", "jsonlint", "markdownlint", "lint-all", "json-eslint"],
     testDefs: {
         good: {
             message: "Valid content should be reported as valid.",
@@ -54,6 +54,11 @@ fluid.defaults("gpii.tests.grunt.lintAll.runner", {
             gruntFile: "tests-Gruntfile-bad.js",
             shouldBeInvalid: true,
             tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+        },
+        excludes: {
+            message: "We should be able to exclude content from linting checks.",
+            gruntFile: "tests-Gruntfile-excludes.js",
+            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
         }
     },
     listeners: {
@@ -63,4 +68,5 @@ fluid.defaults("gpii.tests.grunt.lintAll.runner", {
         }
     }
 });
+
 gpii.tests.grunt.lintAll.runner();

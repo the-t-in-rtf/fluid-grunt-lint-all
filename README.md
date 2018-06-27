@@ -21,28 +21,34 @@ following example:
 "use strict";
 grunt.loadNpmTasks("gpii-grunt-lint-all");
 grunt.config.merge({
-    eslint: {
-        js: {
-            src: ["tasks/*.js", "tests/**/*.js", "./*.js"]
-        },
-        md: {
-            src: [ "./*.md"]
+    lintAll: {
+        sources: {
+            js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js"],
+            json:  ["./tests/data/**/*.json", "./*.json"],
+            json5: ["./tests/data/**/*.json5"],
+            md:    ["./docs/**/*.md", "./*.md"]
         }
-    },
-    jsonlint: {
-        src: ["./*.json"]
-    },
-    json5lint: {
-        src: ["./*.json5"]
-    },
-    mdjsonlint: {
-        src: ["./*.md"]
-    },
-    markdownlint: {
-        src: ["./*.md"]
     }
 });
 ```
+
+By default, this plugin takes care of letting all of the sub-tasks know where to look for Javascript, JSON, JSON5, and
+Markdown files, so you only need to configure the `lintAll` block as shown above.  If you need to exclude content, add a
+negated pattern at the *end* of the relevant source block, as show here.
+
+```javascript
+"use strict";
+grunt.loadNpmTasks("gpii-grunt-lint-all");
+grunt.config.merge({
+    lintAll: {
+        sources: {
+            js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js", "!./src/lib/**/*.js"]
+        }
+    }
+});
+```
+
+## Running the Checks
 
 Once you have installed the plugin and updated your `Gruntfile.js`, you should be able to run the `lint-all` command from
 the root of your repository, as in `grunt lint-all`.

@@ -18,25 +18,13 @@ module.exports = function (grunt) {
     grunt.loadTasks("tasks");
 
     grunt.config.merge({
-        eslint: {
-            js: {
-                src: ["./tests/fixtures/js/bad.js"]
-            },
-            md: {
-                src: [ "./tests/fixtures/md/bad.md"]
+        lintAll: {
+            sources: {
+                js:    ["./tests/fixtures/js/bad.js"],
+                json:  ["./tests/fixtures/json/bad.json"],
+                json5: ["./tests/fixtures/json5/bad.json5"],
+                md:    [ "./tests/fixtures/md/bad.md"]
             }
-        },
-        jsonlint: {
-            src: ["./tests/fixtures/json/bad.json"]
-        },
-        json5lint: {
-            src: ["./tests/fixtures/json5/bad.json5"]
-        },
-        mdjsonlint: {
-            src: ["./tests/fixtures/md/bad.md"]
-        },
-        markdownlint: {
-            src: ["./tests/fixtures/md/bad.md"]
         }
     });
 };

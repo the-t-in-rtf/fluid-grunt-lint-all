@@ -18,10 +18,10 @@ module.exports = function (grunt) {
     grunt.config.merge({
         lintAll: {
             sources: {
-                js:    ["./tests/fixtures/js/good.js"],
-                json:  ["./tests/fixtures/json/good.json"],
-                json5: ["./tests/fixtures/json5/good.json5"],
-                md:    ["./tests/fixtures/md/good.md"]
+                js:    ["./tests/fixtures/js/*.js", "!./tests/fixtures/js/bad.js"],
+                json:  ["./tests/fixtures/json/*.json", "!./tests/fixtures/json/bad.json"],
+                json5: ["./tests/fixtures/json5/*.json5", "!./tests/fixtures/json5/bad.json5"],
+                md:    ["./tests/fixtures/md/*.md", "!./tests/fixtures/md/bad.md"]
             }
         }
     });
