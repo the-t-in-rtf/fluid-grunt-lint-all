@@ -22,4 +22,6 @@ module.exports = function (grunt) {
             }
         }
     });
+
+    grunt.registerTask("lint", "", ["lint-all"]);
 };
