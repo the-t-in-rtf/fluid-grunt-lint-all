@@ -34,11 +34,18 @@ module.exports = function (grunt) {
             }
         },
         lintspaces: {
-            src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>"],
-            options: {
-                newline: true,
-                indentation: "spaces",
-                spaces: 4
+            newlines: {
+                src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>"],
+                options: {
+                    newline: true
+                }
+            },
+            indentation: {
+                src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>"],
+                options: {
+                    indentation: "spaces",
+                    spaces: 4
+                }
             }
         },
         mdjsonlint: {
@@ -65,15 +72,19 @@ module.exports = function (grunt) {
         "json-eslint": {
             src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>"],
             options: {
-                /*
-
-                    Our approach doesn't work well with leading comments in json5 files, which appear to be incorrectly
-                    indented.  As we check for indentation using the grunt-lintspaces plugin, we can safely disable
-                    that check here.
-
-                */
                 "rules": {
-                    "indent": "off"
+                    /*
+
+                        Our approach doesn't work well with leading comments in json5 files, which appear to be incorrectly
+                        indented.  As we check for indentation using the grunt-lintspaces plugin, we can safely disable
+                        that check here.
+
+                    */
+                    "indent": "off",
+                    /*
+                        Allow ES5 multi-line strings.
+                    */
+                    "no-multi-str": "off"
                 }
             }
         }
@@ -87,5 +98,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-lintspaces");
 
     // By default, lint and run all tests.
-    grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", ["eslint:js", "jsonlint", "json5lint", "markdownlint", "eslint:md", "mdjsonlint", "json-eslint", "lintspaces"]);
+    grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", ["eslint", "jsonlint", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"]);
 };
