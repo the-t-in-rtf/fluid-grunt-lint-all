@@ -18,9 +18,9 @@ module.exports = function (grunt) {
         lintAll: {
             sources: {
                 js:    ["tasks/*.js", "tests/**/*.js", "./*.js", "!tests/fixtures/js/bad.js"],
-                md:    [ "./*.md"],
-                json:  ["./*.json"],
-                json5: ["./*.json5"]
+                md:    [ "./*.md", "tests/**/*.md", "!tests/fixtures/md/bad.md"],
+                json:  ["./*.json", "tests/**/*.json", "!tests/fixtures/json/bad.json"],
+                json5: ["./*.json5", "tests/**/*.json5", "!tests/fixtures/json5/bad.json5"]
             }
         }
     });

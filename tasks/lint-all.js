@@ -63,7 +63,19 @@ module.exports = function (grunt) {
             }
         },
         "json-eslint": {
-            src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>"]
+            src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>"],
+            options: {
+                /*
+
+                    Our approach doesn't work well with leading comments in json5 files, which appear to be incorrectly
+                    indented.  As we check for indentation using the grunt-lintspaces plugin, we can safely disable
+                    that check here.
+
+                */
+                "rules": {
+                    "indent": "off"
+                }
+            }
         }
     });
 
