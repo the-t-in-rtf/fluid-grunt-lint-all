@@ -44,7 +44,8 @@ module.exports = function (grunt) {
                 src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>"],
                 options: {
                     indentation: "spaces",
-                    spaces: 4
+                    spaces: 4,
+                    ignores: ["js-comments"]
                 }
             }
         },
