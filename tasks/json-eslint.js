@@ -3,7 +3,7 @@
     A custom task to validate all JSON(5) as though it were enclosed in a simple javascript fixture.  This does not
     check for validity, but instead checks things like indentation and other code conventions.
 
- */
+*/
 /* eslint-env node */
 "use strict";
 var fluid  = require("infusion");

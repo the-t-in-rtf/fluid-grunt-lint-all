@@ -33,6 +33,14 @@ module.exports = function (grunt) {
                 enableJSON5: true
             }
         },
+        lintspaces: {
+            src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>"],
+            options: {
+                newline: true,
+                indentation: "spaces",
+                spaces: 4
+            }
+        },
         mdjsonlint: {
             src: ["<%= lintAll.sources.md %>"]
         },
@@ -64,11 +72,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("gpii-grunt-mdjson-lint");
     grunt.loadNpmTasks("grunt-jsonlint");
     grunt.loadNpmTasks("grunt-markdownlint");
-
-    // TODO: Add a trailing line check here
-
-    // TODO: Define a task that lints json and json5 beyond what jsonlint and json5lint can manage.
+    grunt.loadNpmTasks("grunt-lintspaces");
 
     // By default, lint and run all tests.
-    grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", ["eslint:js", "jsonlint", "json5lint", "markdownlint", "eslint:md", "mdjsonlint", "json-eslint"]);
+    grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", ["eslint:js", "jsonlint", "json5lint", "markdownlint", "eslint:md", "mdjsonlint", "json-eslint", "lintspaces"]);
 };
