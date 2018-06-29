@@ -10,6 +10,8 @@ var fluid  = require("infusion");
 var eslint = require("fluid-eslint");
 
 module.exports = function (grunt) {
+    // Wrap the JSON(5) content in minimal valid Javascript code so tha we can test it using ESLint.
+    var wrapperTemplate = "/* eslint-env node */ \"use strict\"; var wrappedVar = %jsonContent; console.log(wrappedVar);\n";
     grunt.registerMultiTask("json-eslint", "Lint JSON(5) files against ESLint rules.", function () {
         var opts = this.options({});
 
@@ -37,7 +39,7 @@ module.exports = function (grunt) {
                 fileCount++;
                 try {
                     var jsonContent       = grunt.file.read(filepath);
-                    var wrappedContent    = fluid.stringTemplate("/* eslint-env node */ \"use strict\"; var wrappedVar = %jsonContent; console.log(wrappedVar);\n", {jsonContent: jsonContent});
+                    var wrappedContent = fluid.stringTemplate(wrapperTemplate, {jsonContent: jsonContent});
                     var validationResults = engine.executeOnText(wrappedContent);
                     var fileErrorCount    = fluid.get(validationResults, "errorCount");
                     if (fileErrorCount) {
