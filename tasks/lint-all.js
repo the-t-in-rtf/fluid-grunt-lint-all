@@ -10,7 +10,8 @@ module.exports = function (grunt) {
                 md: [],
                 js: [],
                 json: [],
-                json5: []
+                json5: [],
+                other: []
             }
         },
         eslint: {
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
         },
         lintspaces: {
             newlines: {
-                src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>"],
+                src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>", "<%= lintAll.sources.other %>"],
                 options: {
                     newline: true
                 }

@@ -26,7 +26,8 @@ grunt.config.merge({
             js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js"],
             json:  ["./tests/data/**/*.json", "./*.json"],
             json5: ["./tests/data/**/*.json5"],
-            md:    ["./docs/**/*.md", "./*.md"]
+            md:    ["./docs/**/*.md", "./*.md"],
+            other: ["./.*"] // Only checked for trailing linespaces.
         }
     }
 });
@@ -66,6 +67,7 @@ documentation, see below:
 | eslint:md    | Check the validity and formatting of Javascript code blocks in Markdown files. | [eslint-plugin-markdown](https://github.com/eslint/eslint-plugin-markdown) |
 | json5lint    | Check the validity of JSON5 files. | [fluid-grunt-json5lint](https://github.com/fluid-project/fluid-grunt-json5lint) |
 | jsonlint     | Check the validity and formatting of JSON files. | [grunt-jsonlint](https://github.com/brandonramirez/grunt-jsonlint) |
+| lintspaces   | Check the indentation of files, and for the presence of a carriage return at the end of a file. | [grunt-lintspaces](https://github.com/schorfES/grunt-lintspaces) |
 | markdownlint | Check the formatting of Markdown files. | [grunt-markdownlint](https://github.com/sagiegurari/grunt-markdownlint) |
 | mdjsonlint   | Check the validity and formatting of JSON code blocks within Markdown files. | [gpii-grunt-mdjson-lint](https://github.com/GPII/gpii-grunt-mdjson-lint) |
 
