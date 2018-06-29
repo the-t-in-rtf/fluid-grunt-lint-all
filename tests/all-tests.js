@@ -42,7 +42,7 @@ gpii.tests.grunt.lintAll.runTests = function (testDefs) {
 
 fluid.defaults("gpii.tests.grunt.lintAll.runner", {
     gradeNames: ["fluid.component"],
-    tasksToCheck: ["eslint:js", "eslint:md", "json5lint", "mdjsonlint", "jsonlint", "markdownlint", "lint-all", "json-eslint"],
+    tasksToCheck: ["eslint:js", "eslint:md", "json5lint", "mdjsonlint", "jsonlint", "markdownlint", "json-eslint", "lintspaces:indentation", "lintspaces:newlines", "lint-all"],
     testDefs: {
         good: {
             message: "Valid content should be reported as valid.",

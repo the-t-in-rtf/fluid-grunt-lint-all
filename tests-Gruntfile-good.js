@@ -22,7 +22,8 @@ module.exports = function (grunt) {
                 js:    ["./tests/fixtures/js/good.js"],
                 json:  ["./tests/fixtures/json/good.json"],
                 json5: ["./tests/fixtures/json5/good.json5"],
-                md:    ["./tests/fixtures/md/good.md"]
+                md:    ["./tests/fixtures/md/good.md"],
+                other: ["./tests/fixtures/other/.good"]
             }
         }
     });
