@@ -14,12 +14,7 @@
     "bugs": {
         "url": "https://issues.gpii.net/"
     },
-    "licenses": [
-        {
-            "type": "BSD-3-Clause",
-            "url": "https://github.com/GPII/gpii-grunt-lint-all/blob/master/LICENSE-BSD-3-Clause"
-        }
-    ],
+    "license": "BSD-3-Clause",
     "engines": {
         "node": ">= 0.8.0"
     },
@@ -33,7 +28,7 @@
         "fluid-eslint": "2.10.2",
         "fluid-grunt-eslint": "18.1.2",
         "fluid-grunt-json5lint": "1.0.0",
-        "gpii-grunt-mdjson-lint": "1.0.0-dev.20180622T125519Z.0d942ed",
+        "gpii-grunt-mdjson-lint": "1.0.0-dev.20180629T080410Z.02b3951",
         "grunt": "~0.4.5",
         "grunt-jsonlint": "1.1.0",
         "grunt-lintspaces": "0.8.3",
