@@ -33,9 +33,8 @@ module.exports = function (grunt) {
                 }
             });
 
-            fileCount += validPaths.length;
-
             fluid.each(validPaths, function (filepath) {
+                fileCount++;
                 try {
                     var jsonContent       = grunt.file.read(filepath);
                     var wrappedContent    = fluid.stringTemplate("/* eslint-env node */ \"use strict\"; var wrappedVar = %jsonContent; console.log(wrappedVar);\n", {jsonContent: jsonContent});
@@ -63,7 +62,7 @@ module.exports = function (grunt) {
             return false;
         }
         else {
-            grunt.log.ok(fileCount + " " + fileCount === 1 ? "file" : "files" + " lint free.");
+            grunt.log.ok(fileCount + " " + (fileCount === 1 ? "file" : "files") + " lint free.");
         }
     });
 };
