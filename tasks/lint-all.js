@@ -41,12 +41,11 @@ module.exports = function (grunt) {
                     newline: true
                 }
             },
-            indentation: {
-                src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>"],
+            jsonindentation: {
+                src: ["<%= lintAll.sources.json %>"],
                 options: {
                     indentation: "spaces",
-                    spaces: 4,
-                    ignores: ["js-comments"]
+                    spaces: 4
                 }
             }
         },
