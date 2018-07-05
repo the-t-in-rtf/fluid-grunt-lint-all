@@ -39,8 +39,8 @@ module.exports = function (grunt) {
                 fileCount++;
                 try {
                     var jsonContent       = grunt.file.read(filepath);
-                    var wrappedContent = fluid.stringTemplate(wrapperTemplate, {jsonContent: jsonContent});
-                    var validationResults = engine.executeOnText(wrappedContent);
+                    var wrappedContent    = fluid.stringTemplate(wrapperTemplate, { jsonContent: jsonContent });
+                    var validationResults = engine.executeOnText(wrappedContent, false);
                     var fileErrorCount    = fluid.get(validationResults, "errorCount");
                     if (fileErrorCount) {
                         errorCount += fileErrorCount;
