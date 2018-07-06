@@ -28,6 +28,7 @@
         "fluid-eslint": "2.10.2",
         "fluid-grunt-eslint": "18.1.2",
         "fluid-grunt-json5lint": "1.0.0",
+        "fluid-resolve": "1.3.0",
         "gpii-grunt-mdjson-lint": "1.0.0-dev.20180629T080410Z.02b3951",
         "grunt": "1.0.3",
         "grunt-jsonlint": "1.1.0",

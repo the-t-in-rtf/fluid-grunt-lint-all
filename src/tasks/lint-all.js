@@ -1,6 +1,6 @@
 "use strict";
 var fluid = require("infusion");
-require("../");
+require("../../index");
 
 module.exports = function (grunt) {
     grunt.config.merge({
@@ -91,12 +91,12 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks("fluid-grunt-eslint");
-    grunt.loadNpmTasks("fluid-grunt-json5lint");
-    grunt.loadNpmTasks("gpii-grunt-mdjson-lint");
-    grunt.loadNpmTasks("grunt-jsonlint");
-    grunt.loadNpmTasks("grunt-markdownlint");
-    grunt.loadNpmTasks("grunt-lintspaces");
+    grunt.loadNpmTasksProperly("fluid-grunt-eslint");
+    grunt.loadNpmTasksProperly("fluid-grunt-json5lint");
+    grunt.loadNpmTasksProperly("gpii-grunt-mdjson-lint");
+    grunt.loadNpmTasksProperly("grunt-jsonlint");
+    grunt.loadNpmTasksProperly("grunt-markdownlint");
+    grunt.loadNpmTasksProperly("grunt-lintspaces");
 
     // By default, lint and run all tests.
     grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", ["eslint", "jsonlint", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"]);
