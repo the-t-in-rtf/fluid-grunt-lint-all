@@ -1,8 +1,13 @@
 "use strict";
 var fluid = require("infusion");
-require("../../index");
+var gpii = fluid.registerNamespace("gpii");
+
+require("../index");
+require("../src/load-npm-tasks-properly");
 
 module.exports = function (grunt) {
+    gpii.grunt.lintAll.fixGruntTaskLoading(grunt);
+
     grunt.config.merge({
         // Standardised linting checks, without any sources defined.
         lintAll: {
