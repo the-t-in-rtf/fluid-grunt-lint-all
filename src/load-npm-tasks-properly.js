@@ -8,7 +8,7 @@ fluid.registerNamespace("gpii.grunt.lintAll");
 
 /**
  *
- * This function works around Grunt's inability to resolve node_modules properly.  By default, `grunt.loadNpmTasks` can
+ * This function works around Grunt's inability to resolve npm modules properly.  By default, `grunt.loadNpmTasks` can
  * only load modules that are either in a `node_modules` subdirectory immediately beneath the location of the
  * `Gruntfile.js` you are using, or in a `node_module`s directory in a parent directory.  This makes it difficult to use
  * more than one level of Grunt plugins, as you must ensure that each package's key dependencies are also available as
