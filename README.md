@@ -76,3 +76,28 @@ documentation, see below:
 Please note that many of the above checks use our standard ESLint configuration, which is available in the
 [eslint-config-fluid](https://github.com/fluid-project/eslint-config-fluid).  You will need to follow the installation
 instructions in that package before you run many of the above checks.
+
+## Global Ignores
+
+All of the checks above are configured to avoid linting things like `package-lock.json`, coverage reports, and the
+contents of the top-level `node_modules` directory.  You can override these by setting the `ignores` option, as shown
+here:
+
+```javascript
+"use strict";
+grunt.loadNpmTasks("gpii-grunt-lint-all");
+grunt.config.merge({
+    lintAll: {
+        sources: {
+            js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js", "!./src/lib/**/*.js"]
+        },
+        ignores: ["!./tests/intentionally-broken-content/**/*", "!./node_modules", "!./package-lock.json"]
+    }
+});
+```
+
+Please note, ignores must be expressed as negative patterns, i.e. `!./path/to/exclude/*.json`.  Also, Grunt's options
+merging will completely replace the defaults if you set a custom `ignores` setting.   If you are trying to ignore
+content that corresponds to one of the file types in `sources` (`js`, `json`, etc.), you're better off adding your
+pattern(s) to a file-type-specific property.  If you need to change the global `ignores` option, you will need to
+replicate any default rules (such as `!/package-lock.json`) in your custom `ignores` value.
