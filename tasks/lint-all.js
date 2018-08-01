@@ -1,8 +1,13 @@
 "use strict";
 var fluid = require("infusion");
-require("../");
+var gpii = fluid.registerNamespace("gpii");
+
+require("../index");
+require("../src/load-npm-tasks-properly");
 
 module.exports = function (grunt) {
+    gpii.grunt.lintAll.fixGruntTaskLoading(grunt);
+
     grunt.config.merge({
         // Standardised linting checks, without any sources defined.
         lintAll: {
@@ -12,37 +17,38 @@ module.exports = function (grunt) {
                 json: [],
                 json5: [],
                 other: []
-            }
+            },
+            ignores: ["!./package-lock.json", "!./node_modules/**/*", "!./reports/**/*", "!./coverage/**/*", "!./build/**/*", "!./**/.DS_Store"]
         },
         eslint: {
             js: {
-                src: ["<%= lintAll.sources.js %>"]
+                src: ["<%= lintAll.sources.js %>", "<%= lintAll.ignores %>"]
             },
             md: {
-                src: ["<%= lintAll.sources.md %>"],
+                src: ["<%= lintAll.sources.md %>", "<%= lintAll.ignores %>"],
                 options: {
                     configFile: fluid.module.resolvePath("%gpii-grunt-lint-all/.eslintrc-md.json")
                 }
             }
         },
         jsonlint: {
-            src: ["<%= lintAll.sources.json %>"]
+            src: ["<%= lintAll.sources.json %>", "<%= lintAll.ignores %>"]
         },
         json5lint: {
-            src: ["<%= lintAll.sources.json5 %>"],
+            src: ["<%= lintAll.sources.json5 %>", "<%= lintAll.ignores %>"],
             options: {
                 enableJSON5: true
             }
         },
         lintspaces: {
             newlines: {
-                src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>", "<%= lintAll.sources.other %>"],
+                src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>", "<%= lintAll.sources.other %>", "<%= lintAll.ignores %>"],
                 options: {
                     newline: true
                 }
             },
             jsonindentation: {
-                src: ["<%= lintAll.sources.json %>"],
+                src: ["<%= lintAll.sources.json %>", "<%= lintAll.ignores %>"],
                 options: {
                     indentation: "spaces",
                     spaces: 4
@@ -50,10 +56,10 @@ module.exports = function (grunt) {
             }
         },
         mdjsonlint: {
-            src: ["<%= lintAll.sources.md %>"]
+            src: ["<%= lintAll.sources.md %>", "<%= lintAll.ignores %>"]
         },
         markdownlint: {
-            src: ["<%= lintAll.sources.md %>"],
+            src: ["<%= lintAll.sources.md %>", "<%= lintAll.ignores %>"],
             options: {
                 config: {
                     // See https://github.com/DavidAnson/markdownlint#rules--aliases for rule names and meanings.
@@ -71,7 +77,7 @@ module.exports = function (grunt) {
             }
         },
         "json-eslint": {
-            src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>"],
+            src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.ignores %>"],
             options: {
                 "rules": {
                     /*
@@ -91,12 +97,12 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks("fluid-grunt-eslint");
-    grunt.loadNpmTasks("fluid-grunt-json5lint");
-    grunt.loadNpmTasks("gpii-grunt-mdjson-lint");
-    grunt.loadNpmTasks("grunt-jsonlint");
-    grunt.loadNpmTasks("grunt-markdownlint");
-    grunt.loadNpmTasks("grunt-lintspaces");
+    grunt.loadNpmTasksProperly("fluid-grunt-eslint");
+    grunt.loadNpmTasksProperly("fluid-grunt-json5lint");
+    grunt.loadNpmTasksProperly("gpii-grunt-mdjson-lint");
+    grunt.loadNpmTasksProperly("grunt-jsonlint");
+    grunt.loadNpmTasksProperly("grunt-markdownlint");
+    grunt.loadNpmTasksProperly("grunt-lintspaces");
 
     // By default, lint and run all tests.
     grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", ["eslint", "jsonlint", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"]);
