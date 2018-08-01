@@ -1,15 +1,15 @@
 {
-    "name": "grunt-gpii-grunt-lintall",
+    "name": "gpii-grunt-lint-all",
     "description": "A Grunt plugin to run all GPII lint checks.",
-    "version": "1.0.2",
-    "homepage": "https://github.com/GPII/gpii-grunt-lintall",
+    "version": "1.0.1",
+    "homepage": "https://github.com/GPII/gpii-grunt-lint-all",
     "author": {
         "name": "Tony Atkins",
         "email": "tony@raisingthefloor.org"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/GPII/gpii-grunt-lintall"
+        "url": "https://github.com/GPII/gpii-grunt-lint-all"
     },
     "bugs": {
         "url": "https://issues.gpii.net/"
@@ -17,7 +17,7 @@
     "licenses": [
         {
             "type": "BSD-3-Clause",
-            "url": "https://github.com/GPII/gpii-grunt-lintall/blob/master/LICENSE-BSD-3-Clause"
+            "url": "https://github.com/GPII/gpii-grunt-lint-all/blob/master/LICENSE-BSD-3-Clause"
         }
     ],
     "engines": {
