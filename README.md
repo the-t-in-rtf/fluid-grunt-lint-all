@@ -7,46 +7,45 @@ command like:
 npm install gpii-grunt-lint-all --save-dev
 ```
 
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
-
-```javascript
-grunt.loadNpmTasks("gpii-grunt-lint-all");
-```
-
-Please note, as this package provides default configuration options for many commands, if you wish to override options
-safely, your `Gruntfile.js` should load this package's tasks first, and then merge your own options, as shown in the
-following example:
+Once the plugin has been installed, it may be enabled inside your Gruntfile as shown in the following example:
 
 ```javascript
 "use strict";
-grunt.loadNpmTasks("gpii-grunt-lint-all");
-grunt.config.merge({
-    lintAll: {
-        sources: {
-            js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js"],
-            json:  ["./tests/data/**/*.json", "./*.json"],
-            json5: ["./tests/data/**/*.json5"],
-            md:    ["./docs/**/*.md", "./*.md"],
-            other: ["./.*"] // Only checked for trailing linespaces.
+module.exports = function (grunt) {
+    grunt.config.init({
+        lintAll: {
+            sources: {
+                js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js", "!./src/lib/**/*.js"]
+            }
         }
-    }
-});
+    });
+    grunt.loadNpmTasks("gpii-grunt-lint-all");
+    grunt.registerTask("lint", "Perform all standard lint checks.", ["lint-all"]);
+
+    grunt.registerTask("default", ["lint"]);
+};
+
 ```
 
 By default, this plugin takes care of letting all of the sub-tasks know where to look for Javascript, JSON, JSON5, and
-Markdown files, so you only need to configure the `lintAll` block as shown above.  If you need to exclude content, add a
-negated pattern at the *end* of the relevant source block, as show here.
+Markdown files, so you only need to configure the `lintAll` block as shown above.  If you need to exclude content for
+a single file type, add a negated pattern at the *end* of the relevant source block, as show here.
 
 ```javascript
 "use strict";
-grunt.loadNpmTasks("gpii-grunt-lint-all");
-grunt.config.merge({
-    lintAll: {
-        sources: {
-            js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js", "!./src/lib/**/*.js"]
+module.exports = function (grunt) {
+    grunt.config.init({
+        lintAll: {
+            sources: {
+                js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js", "!./src/lib/**/*.js"]
+            }
         }
-    }
-});
+    });
+    grunt.loadNpmTasks("gpii-grunt-lint-all");
+    grunt.registerTask("lint", "Perform all standard lint checks.", ["lint-all"]);
+
+    grunt.registerTask("default", ["lint"]);
+};
 ```
 
 ## Running the Checks
@@ -85,15 +84,21 @@ here:
 
 ```javascript
 "use strict";
-grunt.loadNpmTasks("gpii-grunt-lint-all");
-grunt.config.merge({
-    lintAll: {
-        sources: {
-            js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js", "!./src/lib/**/*.js"]
-        },
-        ignores: ["!./tests/intentionally-broken-content/**/*", "!./node_modules", "!./package-lock.json"]
-    }
-});
+module.exports = function (grunt) {
+    grunt.config.init({
+        lintAll: {
+            sources: {
+                js:    ["./src/js/**/*.js", "tests/js/**/*.js", "./*.js", "!./src/lib/**/*.js"]
+            },
+            ignores: ["!./tests/intentionally-broken-content/**/*", "!./node_modules", "!./package-lock.json"]
+        }
+    });
+    grunt.loadNpmTasks("gpii-grunt-lint-all");
+    grunt.registerTask("lint", "Perform all standard lint checks.", ["lint-all"]);
+
+    grunt.registerTask("default", ["lint"]);
+};
+
 ```
 
 Please note, ignores must be expressed as negative patterns, i.e. `!./path/to/exclude/*.json`.  Also, Grunt's options
