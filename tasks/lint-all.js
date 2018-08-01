@@ -18,37 +18,37 @@ module.exports = function (grunt) {
                 json5: [],
                 other: []
             },
-            ignores: ["!./package-lock.json", "!./node_modules/**/*", "!./reports/**/*", "!./coverage/**/*", "!./build/**/*"]
+            ignores: ["!./package-lock.json", "!./node_modules/**/*", "!./reports/**/*", "!./coverage/**/*", "!./build/**/*", "!./**/.DS_Store"]
         },
         eslint: {
             js: {
-                src: ["<%= lintAll.sources.js %>", "<%= lintAll.ignores %>"]
+                src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.js %>"]
             },
             md: {
-                src: ["<%= lintAll.sources.md %>", "<%= lintAll.ignores %>"],
+                src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.md %>"],
                 options: {
                     configFile: fluid.module.resolvePath("%gpii-grunt-lint-all/.eslintrc-md.json")
                 }
             }
         },
         jsonlint: {
-            src: ["<%= lintAll.sources.json %>", "<%= lintAll.ignores %>"]
+            src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>"]
         },
         json5lint: {
-            src: ["<%= lintAll.sources.json5 %>", "<%= lintAll.ignores %>"],
+            src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json5 %>"],
             options: {
                 enableJSON5: true
             }
         },
         lintspaces: {
             newlines: {
-                src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>", "<%= lintAll.sources.other %>", "<%= lintAll.ignores %>"],
+                src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>", "<%= lintAll.sources.other %>"],
                 options: {
                     newline: true
                 }
             },
             jsonindentation: {
-                src: ["<%= lintAll.sources.json %>", "<%= lintAll.ignores %>"],
+                src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>"],
                 options: {
                     indentation: "spaces",
                     spaces: 4
@@ -56,10 +56,10 @@ module.exports = function (grunt) {
             }
         },
         mdjsonlint: {
-            src: ["<%= lintAll.sources.md %>", "<%= lintAll.ignores %>"]
+            src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.md %>"]
         },
         markdownlint: {
-            src: ["<%= lintAll.sources.md %>", "<%= lintAll.ignores %>"],
+            src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.md %>"],
             options: {
                 config: {
                     // See https://github.com/DavidAnson/markdownlint#rules--aliases for rule names and meanings.
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
             }
         },
         "json-eslint": {
-            src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.ignores %>"],
+            src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>"],
             options: {
                 "rules": {
                     /*
