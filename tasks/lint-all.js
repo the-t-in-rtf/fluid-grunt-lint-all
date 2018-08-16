@@ -104,6 +104,30 @@ module.exports = function (grunt) {
     grunt.loadNpmTasksProperly("grunt-markdownlint");
     grunt.loadNpmTasksProperly("grunt-lintspaces");
 
-    // By default, lint and run all tests.
-    grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", ["eslint", "jsonlint", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"]);
+    var initialForce = grunt.option("force") || false;
+
+    grunt.registerTask("lint-all:pre", "Prepare to run all checks.", function () {
+        grunt.option("force", true);
+    });
+
+    grunt.registerTask("lint-all:post", "Clean up after linting run.", function () {
+        grunt.option("force", initialForce);
+        if (grunt.fail.warncount) {
+            grunt.warn("Linting run failed with " + grunt.fail.warncount + " warning(s), check the log output for details.");
+        }
+    });
+
+    grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", function () {
+        grunt.task.run([
+            "lint-all:pre",
+            "eslint",
+            "jsonlint",
+            "json5lint",
+            "markdownlint",
+            "mdjsonlint",
+            "json-eslint",
+            "lintspaces",
+            "lint-all:post"
+        ]);
+    });
 };
