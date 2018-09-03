@@ -4,9 +4,99 @@ var gpii = fluid.registerNamespace("gpii");
 
 require("../index");
 require("../src/load-npm-tasks-properly");
+require("gpii-glob");
 
 module.exports = function (grunt) {
     gpii.grunt.lintAll.fixGruntTaskLoading(grunt);
+
+    gpii.grunt.lintAll.expandPaths = function (grunt) {
+        if (grunt.config.get("lintAll.expandPaths")) {
+            if (!grunt.config.get("lintAll.expanded")) {
+                // Expand all paths in lintAll.sources and lintAll.ignores.
+                var cwd = grunt.config.get("lintAll.cwd") || process.cwd();
+                var rawSources = grunt.config.get("lintAll.sources");
+                var minimatchOptions = grunt.config.get("lintAll.minimatchOptions");
+                var ignores = grunt.config.get("lintAll.ignore");
+                var excludes = fluid.transform(ignores, gpii.glob.positivePattern);
+
+                var expandedSources = fluid.transform(rawSources, function (globbedPaths) {
+                    return gpii.glob.findFiles(cwd, globbedPaths, excludes, minimatchOptions);
+                });
+
+                grunt.config.set("lintAll.expanded.sources", expandedSources);
+            }
+
+            // Merge expanded paths into named configurations.
+            grunt.config.merge({
+                eslint: {
+                    js: {
+                        src: ["<%= lintAll.expanded.sources.js %>"]
+                    },
+                    md: {
+                        src: ["<%= lintAll.expanded.sources.md %>"]
+                    }
+                },
+                jsonlint: {
+                    src: ["<%= lintAll.expanded.sources.json %>"]
+                },
+                json5lint: {
+                    src: ["<%= lintAll.expanded.sources.json5 %>"]
+                },
+                lintspaces: {
+                    newlines: {
+                        src: ["<%= lintAll.expanded.sources.json %>", "<%= lintAll.expanded.sources.json5 %>", "<%= lintAll.expanded.sources.js %>", "<%= lintAll.expanded.sources.md %>", "<%= lintAll.expanded.sources.other %>"]
+                    },
+                    jsonindentation: {
+                        src: ["<%= lintAll.sources.json %>"]
+                    }
+                },
+                mdjsonlint: {
+                    src: ["<%= lintAll.expanded.sources.md %>"]
+                },
+                markdownlint: {
+                    src: ["<%= lintAll.expanded.sources.md %>"]
+                },
+                "json-eslint": {
+                    src: ["<%= lintAll.expanded.sources.json %>", "<%= lintAll.expanded.sources.json5 %>"]
+                }
+            });
+        }
+        else {
+            grunt.config.merge({
+                eslint: {
+                    js: {
+                        src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.js %>"]
+                    },
+                    md: {
+                        src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.md %>"]
+                    }
+                },
+                jsonlint: {
+                    src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>"]
+                },
+                json5lint: {
+                    src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json5 %>"]
+                },
+                lintspaces: {
+                    newlines: {
+                        src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>", "<%= lintAll.sources.other %>"]
+                    },
+                    jsonindentation: {
+                        src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>"]
+                    }
+                },
+                mdjsonlint: {
+                    src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.md %>"]
+                },
+                markdownlint: {
+                    src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.md %>"]
+                },
+                "json-eslint": {
+                    src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>"]
+                }
+            });
+        }
+    };
 
     grunt.config.merge({
         // Standardised linting checks, without any sources defined.
@@ -18,48 +108,39 @@ module.exports = function (grunt) {
                 json5: [],
                 other: []
             },
-            ignores: ["!./package-lock.json", "!./node_modules/**/*", "!./reports/**/*", "!./coverage/**/*", "!./build/**/*", "!./**/.DS_Store"]
+            ignore: ["!package-lock.json", "!./node_modules/**/*", "!./reports/**/*", "!./coverage/**/*", "!./build/**/*", "!.DS_Store", "!*~"],
+            expandPaths: true,
+            minimatchOptions: {
+                dot: true,      // Include matches like ".eslintrc.json" against patterns like "*.json"
+                matchBase: true // Allows us to use patterns like ".DS_Store" and have them excluded at any level.
+            }
         },
         eslint: {
-            js: {
-                src: ["<%= lintAll.sources.js %>", "<%= lintAll.ignores %>"]
-            },
             md: {
-                src: ["<%= lintAll.sources.md %>", "<%= lintAll.ignores %>"],
                 options: {
                     configFile: fluid.module.resolvePath("%gpii-grunt-lint-all/.eslintrc-md.json")
                 }
             }
         },
-        jsonlint: {
-            src: ["<%= lintAll.sources.json %>", "<%= lintAll.ignores %>"]
-        },
         json5lint: {
-            src: ["<%= lintAll.sources.json5 %>", "<%= lintAll.ignores %>"],
             options: {
                 enableJSON5: true
             }
         },
         lintspaces: {
             newlines: {
-                src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>", "<%= lintAll.sources.other %>", "<%= lintAll.ignores %>"],
                 options: {
                     newline: true
                 }
             },
             jsonindentation: {
-                src: ["<%= lintAll.sources.json %>", "<%= lintAll.ignores %>"],
                 options: {
                     indentation: "spaces",
                     spaces: 4
                 }
             }
         },
-        mdjsonlint: {
-            src: ["<%= lintAll.sources.md %>", "<%= lintAll.ignores %>"]
-        },
         markdownlint: {
-            src: ["<%= lintAll.sources.md %>", "<%= lintAll.ignores %>"],
             options: {
                 config: {
                     // See https://github.com/DavidAnson/markdownlint#rules--aliases for rule names and meanings.
@@ -77,7 +158,6 @@ module.exports = function (grunt) {
             }
         },
         "json-eslint": {
-            src: ["<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.ignores %>"],
             options: {
                 "rules": {
                     /*
@@ -91,7 +171,8 @@ module.exports = function (grunt) {
                     /*
                         Allow ES5 multi-line strings.
                     */
-                    "no-multi-str": "off"
+                    "no-multi-str": "off",
+                    "trailing-comma": "off"
                 }
             }
         }
@@ -117,7 +198,26 @@ module.exports = function (grunt) {
         }
     });
 
+    fluid.each(
+        ["eslint", "jsonlint", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"],
+        function (taskName) {
+            var wrappedName = "wrapped-" + taskName;
+            grunt.task.renameTask(taskName, wrappedName);
+
+            // register our wrapper around the task.
+            grunt.registerTask(taskName, "wrapped copy of " + taskName, function () {
+                gpii.grunt.lintAll.expandPaths(grunt);
+
+                // Expose the configurations associated with their default names to our renamed  copies of the underlying tasks.
+                grunt.config.set(wrappedName, grunt.config.get(taskName));
+
+                grunt.task.run(wrappedName);
+            });
+        }
+    );
+
     grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", function () {
+        gpii.grunt.lintAll.expandPaths(grunt);
         grunt.task.run([
             "lint-all:pre",
             "eslint",

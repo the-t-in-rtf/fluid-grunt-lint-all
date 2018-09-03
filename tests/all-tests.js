@@ -71,6 +71,11 @@ fluid.defaults("gpii.tests.grunt.lintAll.runner", {
             message: "We should be able to exclude content from linting checks.",
             gruntFile: "tests-Gruntfile-excludes.js",
             tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+        },
+        overrides: {
+            message: "We should be able to override options for all configurable plugins.",
+            gruntFile: "tests-Gruntfile-options-override.js",
+            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
         }
     },
     listeners: {
