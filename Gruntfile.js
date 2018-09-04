@@ -11,10 +11,7 @@
 */
 "use strict";
 module.exports = function (grunt) {
-    // NOTE: DO NOT use this file as a template, this only works from this package itself.  See the README for usage instructions.
-    grunt.loadTasks("tasks");
-
-    grunt.config.merge({
+    grunt.initConfig({
         lintAll: {
             sources: {
                 js:    ["tasks/*.js", "tests/**/*.js", "./*.js", "!tests/fixtures/js/bad.js"],
@@ -26,5 +23,8 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask("lint", "", ["lint-all"]);
+    // NOTE: DO NOT use this file as a template, this only works from this package itself.  See the README for usage instructions.
+    grunt.loadTasks("tasks");
+
+    grunt.registerTask("lint", "Run all lint checks.", ["lint-all"]);
 };

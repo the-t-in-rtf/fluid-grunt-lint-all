@@ -14,12 +14,7 @@
 */
 "use strict";
 module.exports = function (grunt) {
-    grunt.loadTasks("tasks");
-
-    // Disable the mdjsonlint task, which has no configurable options, and which would otherwise fail.
-    grunt.registerTask("mdjsonlint", fluid.identity);
-
-    grunt.config.merge({
+    grunt.initConfig({
         lintAll: {
             sources: {
                 js:    ["./tests/fixtures/js/bad.js"],
@@ -41,7 +36,6 @@ module.exports = function (grunt) {
             },
             md: {
                 options: {
-                    configFile: fluid.module.resolvePath("%gpii-grunt-lint-all/.eslintrc-md.json"),
                     rules: {
                         semi: "off"
                     }
@@ -86,4 +80,9 @@ module.exports = function (grunt) {
             }
         }
     });
+
+    grunt.loadTasks("tasks");
+
+    // Disable the mdjsonlint task, which has no configurable options, and which would otherwise fail.
+    grunt.registerTask("mdjsonlint", fluid.identity);
 };

@@ -16,7 +16,7 @@
 */
 "use strict";
 module.exports = function (grunt) {
-    grunt.config.merge({
+    grunt.initConfig({
         lintAll: {
             sources: {
                 js:    ["./tests/fixtures/js/*.js", "!./tests/fixtures/js/bad.js"],
