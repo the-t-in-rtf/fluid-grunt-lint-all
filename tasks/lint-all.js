@@ -10,12 +10,11 @@ module.exports = function (grunt) {
     gpii.grunt.lintAll.fixGruntTaskLoading(grunt);
 
     gpii.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
-        var sanelyMergedOptions = fluid.extend(true, {}, gpii.grunt.lintAll.defaults, grunt.config.get());
-        grunt.config.set("lintAll", sanelyMergedOptions.lintAll);
-
+        var sanelyMergedOptions = {};
         fluid.each(
-            ["eslint", "jsonlint", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"],
+            ["lintAll", "eslint", "jsonlint", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"],
             function (taskName) {
+                sanelyMergedOptions[taskName] = fluid.extend(true, {}, gpii.grunt.lintAll.defaults[taskName], grunt.config.get(taskName));
                 grunt.config.set(taskName, sanelyMergedOptions[taskName]);
             }
         );
