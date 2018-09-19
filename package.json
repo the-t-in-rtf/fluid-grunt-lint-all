@@ -30,6 +30,7 @@
         "grunt-jsonlint": "1.1.0",
         "grunt-lintspaces": "0.8.3",
         "grunt-markdownlint": "2.1.0",
+        "infusion": "3.0.0-dev.20180801T212157Z.09bf3d438",
         "json5": "1.0.1",
         "jsonlint": "1.6.3"
     },
