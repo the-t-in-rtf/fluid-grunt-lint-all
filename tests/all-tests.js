@@ -15,26 +15,38 @@ gpii.tests.grunt.lintAll.runTests = function (testDefs) {
     var cwd = fluid.module.resolvePath("%gpii-grunt-lint-all");
     fluid.each(testDefs, function (testDef) {
         jqUnit.test(testDef.message, function () {
-            jqUnit.expect(testDef.tasksToCheck.length);
+            // One check per task plus an extra check for the rollup when running error tests.
+            var expected = testDef.tasksToCheck.length + (testDef.shouldBeInvalid ? 1 : 0);
+            jqUnit.expect(expected);
+
             fluid.each(testDef.tasksToCheck, function (task) {
                 var command = ["grunt", "--gruntfile", testDef.gruntFile, task].join(" ");
-                try {
-                    child_process.execSync(command, { cwd: cwd});
-                    if (testDef.shouldBeInvalid) {
-                        jqUnit.fail("The task '" + task + "' did not report invalid content.");
+                jqUnit.stop();
+                child_process.exec(command, { cwd: cwd}, function (error, stdout) {
+                    jqUnit.start();
+                    if (error) {
+                        if (testDef.shouldBeInvalid) {
+                            jqUnit.assert("The task '" + task + "' correctly reported invalid content.");
+                            if (task === "lint-all") {
+                                jqUnit.assertTrue(
+                                    "The rollup should complete but throw a warning on linting failures.",
+                                    stdout.match(/Linting run failed with [0-9]+ warning\(s\), check the log output for details./)
+                                );
+                            }
+                        }
+                        else {
+                            jqUnit.fail("The task '" + task + "' should not have reported invalid content.");
+                        }
                     }
                     else {
-                        jqUnit.assert("The task '" + task + "' correctly reported valid content.");
+                        if (testDef.shouldBeInvalid) {
+                            jqUnit.fail("The task '" + task + "' did not report invalid content.");
+                        }
+                        else {
+                            jqUnit.assert("The task '" + task + "' correctly reported valid content.");
+                        }
                     }
-                }
-                catch (error) {
-                    if (testDef.shouldBeInvalid) {
-                        jqUnit.assert("The task '" + task + "' correctly reported invalid content.");
-                    }
-                    else {
-                        jqUnit.fail("The task '" + task + "' should not have reported invalid content.");
-                    }
-                }
+                });
             });
         });
     });
@@ -58,6 +70,16 @@ fluid.defaults("gpii.tests.grunt.lintAll.runner", {
         excludes: {
             message: "We should be able to exclude content from linting checks.",
             gruntFile: "tests-Gruntfile-excludes.js",
+            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+        },
+        overrides: {
+            message: "We should be able to override options for all configurable plugins.",
+            gruntFile: "tests-Gruntfile-options-override.js",
+            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+        },
+        noExpand: {
+            message: "We should be able to disable expansion and merging.",
+            gruntFile: "tests-Gruntfile-noExpand.js",
             tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
         }
     },

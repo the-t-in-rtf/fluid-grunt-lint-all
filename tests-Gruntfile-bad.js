@@ -15,9 +15,7 @@
 */
 "use strict";
 module.exports = function (grunt) {
-    grunt.loadTasks("tasks");
-
-    grunt.config.merge({
+    grunt.initConfig({
         lintAll: {
             sources: {
                 js:    ["./tests/fixtures/js/bad.js"],
@@ -28,4 +26,6 @@ module.exports = function (grunt) {
             }
         }
     });
+
+    grunt.loadTasks("tasks");
 };
