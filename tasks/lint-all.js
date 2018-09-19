@@ -166,34 +166,34 @@ gpii.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
         grunt.config.merge({
             eslint: {
                 js: {
-                    src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.js %>"]
+                    src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.js %>"]
                 },
                 md: {
-                    src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.md %>"]
+                    src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.md %>"]
                 }
             },
             jsonlint: {
-                src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>"]
+                src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.json %>"]
             },
             json5lint: {
-                src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json5 %>"]
+                src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.json5 %>"]
             },
             lintspaces: {
                 newlines: {
-                    src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>", "<%= lintAll.sources.other %>"]
+                    src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>", "<%= lintAll.sources.js %>", "<%= lintAll.sources.md %>", "<%= lintAll.sources.other %>"]
                 },
                 jsonindentation: {
-                    src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>"]
+                    src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.json %>"]
                 }
             },
             mdjsonlint: {
-                src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.md %>"]
+                src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.md %>"]
             },
             markdownlint: {
-                src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.md %>"]
+                src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.md %>"]
             },
             "json-eslint": {
-                src: ["<%= lintAll.ignores %>", "<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>"]
+                src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>"]
             }
         });
     }

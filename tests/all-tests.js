@@ -76,6 +76,11 @@ fluid.defaults("gpii.tests.grunt.lintAll.runner", {
             message: "We should be able to override options for all configurable plugins.",
             gruntFile: "tests-Gruntfile-options-override.js",
             tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+        },
+        noExpand: {
+            message: "We should be able to disable expansion and merging.",
+            gruntFile: "tests-Gruntfile-noExpand.js",
+            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
         }
     },
     listeners: {
