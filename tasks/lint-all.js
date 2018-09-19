@@ -101,13 +101,12 @@ gpii.grunt.lintAll.allChecks = ["eslint", "jsonlint", "json5lint", "markdownlint
  *
  */
 gpii.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
-    var sanelyMergedOptions = {};
     fluid.each(
         // Merge specific options for all subtasks, plus our own configuration.
         gpii.grunt.lintAll.allChecks.concat("lintAll"),
         function (taskName) {
-            sanelyMergedOptions[taskName] = fluid.extend(true, {}, gpii.grunt.lintAll.defaults[taskName], grunt.config.get(taskName));
-            grunt.config.set(taskName, sanelyMergedOptions[taskName]);
+            var sanelyMergedOptions = fluid.extend(true, {}, gpii.grunt.lintAll.defaults[taskName], grunt.config.get(taskName));
+            grunt.config.set(taskName, sanelyMergedOptions);
         }
     );
 
