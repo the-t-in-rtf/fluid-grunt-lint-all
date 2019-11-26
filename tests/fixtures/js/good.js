@@ -1,4 +1,5 @@
 "use strict";
+var fluid = require("infusion");
 var foo = "bar";
 
 /**
@@ -9,7 +10,7 @@ var foo = "bar";
  *  - `message`: a mesage about the results of the call.
  */
 var myFunc = function (myString) {
-    console.log(myString);
+    fluid.log(myString);
     return { isError: false, message: "yay" };
 };
 myFunc(foo);

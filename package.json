@@ -19,8 +19,8 @@
         "test": "node node_modules/nyc/bin/nyc.js node tests/all-tests.js"
     },
     "dependencies": {
-        "eslint-config-fluid": "1.3.0",
-        "eslint-plugin-markdown": "1.0.0-beta.6",
+        "eslint-config-fluid": "1.4.0",
+        "eslint-plugin-markdown": "1.0.1",
         "fluid-eslint": "2.10.2",
         "fluid-grunt-eslint": "18.1.2",
         "fluid-grunt-json5lint": "1.0.0",
@@ -28,16 +28,16 @@
         "gpii-glob": "1.0.0",
         "gpii-grunt-mdjson-lint": "1.0.1-dev.20180913T113032Z.d908a16",
         "grunt-jsonlint": "1.1.0",
-        "grunt-lintspaces": "0.8.3",
-        "grunt-markdownlint": "2.1.0",
+        "grunt-lintspaces": "0.8.6",
+        "grunt-markdownlint": "2.7.0",
         "infusion": "3.0.0-dev.20180801T212157Z.09bf3d438",
-        "json5": "1.0.1",
+        "json5": "2.1.1",
         "jsonlint": "1.6.3"
     },
     "devDependencies": {
-        "grunt": "1.0.3",
+        "grunt": "1.0.4",
         "node-jqunit": "1.1.8",
-        "nyc": "13.0.1"
+        "nyc": "14.1.1"
     },
     "keywords": [
         "gruntplugin",
