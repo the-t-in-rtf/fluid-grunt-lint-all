@@ -31,7 +31,7 @@ gpii.grunt.lintAll.defaults = {
             }
         }
     },
-    jsonlint: {
+    "json-parser": {
     },
     json5lint: {
         options: {
@@ -90,7 +90,7 @@ gpii.grunt.lintAll.defaults = {
 };
 
 // The full list of checks to configure on startup, and to run when the `lint-all` task is run.
-gpii.grunt.lintAll.allChecks = ["eslint", "jsonlint", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"];
+gpii.grunt.lintAll.allChecks = ["eslint", "json-parser", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"];
 
 /**
  *
@@ -136,7 +136,7 @@ gpii.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
                     src: ["<%= lintAll.expanded.sources.md %>"]
                 }
             },
-            jsonlint: {
+            "json-parser": {
                 src: ["<%= lintAll.expanded.sources.json %>"]
             },
             json5lint: {
@@ -171,7 +171,7 @@ gpii.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
                     src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.md %>"]
                 }
             },
-            jsonlint: {
+            "json-parser": {
                 src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.json %>"]
             },
             json5lint: {
@@ -212,7 +212,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasksProperly("fluid-grunt-eslint");
     grunt.loadNpmTasksProperly("fluid-grunt-json5lint");
     grunt.loadNpmTasksProperly("gpii-grunt-mdjson-lint");
-    grunt.loadNpmTasksProperly("grunt-jsonlint");
     grunt.loadNpmTasksProperly("grunt-markdownlint");
     grunt.loadNpmTasksProperly("grunt-lintspaces");
 
@@ -242,7 +241,7 @@ module.exports = function (grunt) {
         }
     );
 
-    grunt.registerTask("lint-all", "Apply eslint, jsonlint, json5lint, and various markdown linting checks", function () {
+    grunt.registerTask("lint-all", "Apply eslint, json-parser, json5lint, and various markdown linting checks", function () {
         var wrappedTasks = ["lint-all:pre"].concat(gpii.grunt.lintAll.allChecks).concat("lint-all:post");
         grunt.task.run(wrappedTasks);
     });
