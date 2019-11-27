@@ -1,7 +1,7 @@
 {
     "name": "gpii-grunt-lint-all",
     "description": "A Grunt plugin to run all GPII lint checks.",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "homepage": "https://github.com/GPII/gpii-grunt-lint-all",
     "author": {
         "name": "Tony Atkins",
