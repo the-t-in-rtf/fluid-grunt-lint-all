@@ -46,8 +46,12 @@ module.exports = function (grunt) {
                         errorCount += fileErrorCount;
                         fluid.each(validationResults.results, function (singleError) {
                             fluid.each(singleError.messages, function (singleMessage) {
+                                // Our "wrapper" adds three lines of code before the first line.
+                                var adjustedLine = singleMessage.line - 3;
+                                // Our "wrapper" adds 17 characters to the first line.
+                                var adjustedColumn = adjustedLine === 1 ? singleMessage.column - 17 : singleMessage.column;
                                 // TODO: Shorten this path sensibly
-                                var errorMessage = filepath + " (" + singleMessage.line + ":" + singleMessage.column + "): " + singleMessage.message;
+                                var errorMessage = filepath + " (" + adjustedLine + ":" + adjustedColumn + "): " + singleMessage.message;
                                 grunt.log.error(errorMessage);
                             });
                         });
