@@ -18,7 +18,7 @@ module.exports = function (grunt) {
         lintAll: {
             sources: {
                 js:    ["./tests/fixtures/js/bad.js"],
-                json:  ["./tests/fixtures/json/bad.json"],
+                json:  ["./tests/fixtures/json/good.json"],
                 json5: ["./tests/fixtures/json5/dangling-comma.json5"],
                 md:    ["./tests/fixtures/md/bad.md"],
                 other: ["./tests/fixtures/other/.bad"]
@@ -72,11 +72,6 @@ module.exports = function (grunt) {
                 "rules": {
                     "comma-dangle": "off"
                 }
-            }
-        },
-        jsonlint: {
-            options: {
-                "cjson": true
             }
         }
     });

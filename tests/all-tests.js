@@ -16,10 +16,10 @@ gpii.tests.grunt.lintAll.runTests = function (testDefs) {
     fluid.each(testDefs, function (testDef) {
         jqUnit.test(testDef.message, function () {
             // One check per task plus an extra check for the rollup when running error tests.
-            var expected = testDef.tasksToCheck.length + (testDef.shouldBeInvalid ? 1 : 0);
+            var expected = testDef.allTasks.length + (testDef.shouldBeInvalid ? 1 : 0);
             jqUnit.expect(expected);
 
-            fluid.each(testDef.tasksToCheck, function (task) {
+            fluid.each(testDef.allTasks, function (task) {
                 var command = ["grunt", "--gruntfile", testDef.gruntFile, task].join(" ");
                 jqUnit.stop();
                 child_process.exec(command, { cwd: cwd}, function (error, stdout) {
@@ -54,33 +54,34 @@ gpii.tests.grunt.lintAll.runTests = function (testDefs) {
 
 fluid.defaults("gpii.tests.grunt.lintAll.runner", {
     gradeNames: ["fluid.component"],
-    tasksToCheck: ["eslint:js", "eslint:md", "json5lint", "mdjsonlint", "jsonlint", "markdownlint", "json-eslint", "lintspaces:jsonindentation", "lintspaces:newlines", "lint-all"],
+    allTasks:          ["eslint:js", "eslint:md", "json-eslint", "json-parser", "json5lint", "lintspaces:jsonindentation", "lintspaces:newlines", "markdownlint", "mdjsonlint", "lint-all"],
+    configurableTasks: ["eslint:js", "eslint:md", "json-eslint", "json5lint", "lintspaces:jsonindentation", "lintspaces:newlines", "markdownlint", "mdjsonlint", "lint-all"],
     testDefs: {
         good: {
             message: "Valid content should be reported as valid.",
             gruntFile: "tests-Gruntfile-good.js",
-            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+            allTasks: "{gpii.tests.grunt.lintAll.runner}.options.allTasks"
         },
         bad: {
             message: "Invalid content should be reported as invalid.",
             gruntFile: "tests-Gruntfile-bad.js",
             shouldBeInvalid: true,
-            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+            allTasks: "{gpii.tests.grunt.lintAll.runner}.options.allTasks"
         },
         excludes: {
             message: "We should be able to exclude content from linting checks.",
             gruntFile: "tests-Gruntfile-excludes.js",
-            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+            allTasks: "{gpii.tests.grunt.lintAll.runner}.options.allTasks"
         },
         overrides: {
             message: "We should be able to override options for all configurable plugins.",
             gruntFile: "tests-Gruntfile-options-override.js",
-            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+            allTasks: "{gpii.tests.grunt.lintAll.runner}.options.configurableTasks"
         },
         noExpand: {
             message: "We should be able to disable expansion and merging.",
             gruntFile: "tests-Gruntfile-noExpand.js",
-            tasksToCheck: "{gpii.tests.grunt.lintAll.runner}.options.tasksToCheck"
+            allTasks: "{gpii.tests.grunt.lintAll.runner}.options.allTasks"
         }
     },
     listeners: {
