@@ -64,6 +64,7 @@ gpii.grunt.lintAll.defaults = {
                     tables:      false,
                     code_blocks: false
                 },
+                "code-block-style": false, // Allow both fenced and indented styles
                 "ol-prefix": {style: "ordered"} // 1. 2. 3. etc
             }
         }
