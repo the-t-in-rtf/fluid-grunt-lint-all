@@ -1,13 +1,13 @@
 "use strict";
 var fluid = require("infusion");
-var gpii = fluid.registerNamespace("gpii");
 
 require("../index");
 require("../src/load-npm-tasks-properly");
-require("gpii-glob");
+require("../src/mdjson-linter");
+require("fluid-glob");
 
 // This package's default configuration options for all checks.
-gpii.grunt.lintAll.defaults = {
+fluid.grunt.lintAll.defaults = {
     // Standardised linting checks, without any sources defined.
     lintAll: {
         sources: {
@@ -27,7 +27,7 @@ gpii.grunt.lintAll.defaults = {
     eslint: {
         md: {
             options: {
-                configFile: fluid.module.resolvePath("%gpii-grunt-lint-all/.eslintrc-md.json")
+                configFile: fluid.module.resolvePath("%fluid-grunt-lint-all/.eslintrc-md.json")
             }
         }
     },
@@ -69,6 +69,7 @@ gpii.grunt.lintAll.defaults = {
             }
         }
     },
+    mdjsonlint: {},
     "json-eslint": {
         options: {
             "rules": {
@@ -91,7 +92,7 @@ gpii.grunt.lintAll.defaults = {
 };
 
 // The full list of checks to configure on startup, and to run when the `lint-all` task is run.
-gpii.grunt.lintAll.allChecks = ["eslint", "json-parser", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"];
+fluid.grunt.lintAll.allChecks = ["eslint", "json-parser", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"];
 
 /**
  *
@@ -101,12 +102,12 @@ gpii.grunt.lintAll.allChecks = ["eslint", "json-parser", "json5lint", "markdownl
  * @param {Object} grunt - The global `grunt` instance.
  *
  */
-gpii.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
+fluid.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
     fluid.each(
         // Merge specific options for all subtasks, plus our own configuration.
-        gpii.grunt.lintAll.allChecks.concat("lintAll"),
+        fluid.grunt.lintAll.allChecks.concat("lintAll"),
         function (taskName) {
-            var sanelyMergedOptions = fluid.extend(true, {}, gpii.grunt.lintAll.defaults[taskName], grunt.config.get(taskName));
+            var sanelyMergedOptions = fluid.extend(true, {}, fluid.grunt.lintAll.defaults[taskName], grunt.config.get(taskName));
             grunt.config.set(taskName, sanelyMergedOptions);
         }
     );
@@ -118,10 +119,10 @@ gpii.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
             var rawSources = grunt.config.get("lintAll.sources");
             var minimatchOptions = grunt.config.get("lintAll.minimatchOptions");
             var ignores = grunt.config.get("lintAll.ignore");
-            var excludes = fluid.transform(ignores, gpii.glob.positivePattern);
+            var excludes = fluid.transform(ignores, fluid.glob.positivePattern);
 
             var expandedSources = fluid.transform(rawSources, function (globbedPaths) {
-                return gpii.glob.findFiles(cwd, globbedPaths, excludes, minimatchOptions);
+                return fluid.glob.findFiles(cwd, globbedPaths, excludes, minimatchOptions);
             });
 
             grunt.config.set("lintAll.expanded.sources", expandedSources);
@@ -199,7 +200,7 @@ gpii.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
     }
 
     fluid.each(
-        gpii.grunt.lintAll.allChecks,
+        fluid.grunt.lintAll.allChecks,
         function (taskName) {
             var wrappedName = "wrapped-" + taskName;
             grunt.config.set(wrappedName, grunt.config.get(taskName));
@@ -208,15 +209,61 @@ gpii.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
 };
 
 module.exports = function (grunt) {
-    gpii.grunt.lintAll.fixGruntTaskLoading(grunt);
+    fluid.grunt.lintAll.fixGruntTaskLoading(grunt);
 
     grunt.loadNpmTasksProperly("fluid-grunt-eslint");
     grunt.loadNpmTasksProperly("fluid-grunt-json5lint");
-    grunt.loadNpmTasksProperly("gpii-grunt-mdjson-lint");
     grunt.loadNpmTasksProperly("grunt-markdownlint");
     grunt.loadNpmTasksProperly("grunt-lintspaces");
 
     var initialForce = grunt.option("force") || false;
+
+    grunt.registerMultiTask("mdjsonlint", "Lint JSON and JSON5 blocks within markdown documents.", function () {
+        // Merge task-specific and/or target-specific options with these defaults.
+        // var options = this.options({
+        //     punctuation: '.',
+        //     separator: ', '
+        // });
+
+        var errorCount = 0;
+        var fileCount  = 0;
+        // Iterate over all specified file groups.
+        this.files.forEach(function (f) {
+            var validPaths = f.src.filter(function (filepath) {
+                // Warn on and remove invalid source files (if nonull was set).
+                if (!grunt.file.exists(filepath)) {
+                    grunt.log.warn("Source file '" + filepath + "' not found.");
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
+
+            fileCount += validPaths.length;
+
+            fluid.each(validPaths, function (filepath) {
+                var mdContent = grunt.file.read(filepath);
+                var fileErrors = fluid.mdjsonLinter(mdContent);
+                if (fileErrors.length) {
+                    fluid.each(fileErrors, function (error) {
+                        errorCount++;
+                        // TODO: Shorten this path sensibly
+                        var errorMessage = filepath + "(" + error.line + ":" + error.column + "):" + error.message;
+                        grunt.log.error(errorMessage);
+                    });
+                }
+            });
+        });
+
+        if (errorCount) {
+            grunt.log.error("Found " + errorCount + " errors in " + fileCount + " " + fileCount === 1 ? "file" : "files" + ".");
+            return false;
+        }
+        else {
+            grunt.log.ok(fileCount + " " + (fileCount === 1 ? "file" : "files") + " lint free.");
+        }
+    });
 
     grunt.registerTask("lint-all:pre", "Prepare to run all checks.", function () {
         grunt.option("force", true);
@@ -230,7 +277,7 @@ module.exports = function (grunt) {
     });
 
     fluid.each(
-        gpii.grunt.lintAll.allChecks,
+        fluid.grunt.lintAll.allChecks,
         function (taskName) {
             var wrappedName = "wrapped-" + taskName;
             grunt.task.renameTask(taskName, wrappedName);
@@ -243,9 +290,9 @@ module.exports = function (grunt) {
     );
 
     grunt.registerTask("lint-all", "Apply eslint, json-parser, json5lint, and various markdown linting checks", function () {
-        var wrappedTasks = ["lint-all:pre"].concat(gpii.grunt.lintAll.allChecks).concat("lint-all:post");
+        var wrappedTasks = ["lint-all:pre"].concat(fluid.grunt.lintAll.allChecks).concat("lint-all:post");
         grunt.task.run(wrappedTasks);
     });
 
-    gpii.grunt.lintAll.mergeAndExpandOptions(grunt);
+    fluid.grunt.lintAll.mergeAndExpandOptions(grunt);
 };

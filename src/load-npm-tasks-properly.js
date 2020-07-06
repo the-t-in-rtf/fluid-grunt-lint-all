@@ -1,10 +1,9 @@
 "use strict";
 var fluid = require("infusion");
-var gpii = fluid.registerNamespace("gpii");
 
 var resolve = require("fluid-resolve");
 
-fluid.registerNamespace("gpii.grunt.lintAll");
+fluid.registerNamespace("fluid.grunt.lintAll");
 
 /**
  *
@@ -26,7 +25,7 @@ fluid.registerNamespace("gpii.grunt.lintAll");
  * @param {Object } grunt - The Grunt instance (i.e. the result of require-ing Grunt).
  *
  */
-gpii.grunt.lintAll.fixGruntTaskLoading = function (grunt) {
+fluid.grunt.lintAll.fixGruntTaskLoading = function (grunt) {
     grunt.loadNpmTasksProperly = function (name) {
         var resolved = resolve.sync(name, {
             // Stupid function require to fake out resolve's algorithm which actually attempts to resolve "main", which does

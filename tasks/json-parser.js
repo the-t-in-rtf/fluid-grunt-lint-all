@@ -4,11 +4,10 @@ var jsonService = require("vscode-json-languageservice");
 var fs = require("fs");
 
 module.exports = function (grunt) {
-    var gpii  = fluid.registerNamespace("gpii");
-    fluid.registerNamespace("gpii.lintAll.parseJson");
+    fluid.registerNamespace("fluid.lintAll.parseJson");
 
     // Sort validation errors by position (line, then column).
-    gpii.lintAll.parseJson.sortByPosition = function (a, b) {
+    fluid.lintAll.parseJson.sortByPosition = function (a, b) {
         if (a.line < b.line) {
             return -1;
         }
@@ -24,7 +23,7 @@ module.exports = function (grunt) {
         else { return 0; }
     };
 
-    gpii.lintAll.parseJson.filterToExistingFiles = function (filepath) {
+    fluid.lintAll.parseJson.filterToExistingFiles = function (filepath) {
         // Warn on and remove invalid source files (if nonull was set).
         if (!grunt.file.exists(filepath)) {
             grunt.log.warn("Source file '" + filepath + "' not found.");
@@ -46,7 +45,7 @@ module.exports = function (grunt) {
         var errorCount = 0;
         var fileCount = 0;
         this.files.forEach(function (f) {
-            var validPaths = f.src.filter(gpii.lintAll.parseJson.filterToExistingFiles);
+            var validPaths = f.src.filter(fluid.lintAll.parseJson.filterToExistingFiles);
             fluid.each(validPaths, function (filepath) {
                 fileCount++;
 
@@ -66,7 +65,7 @@ module.exports = function (grunt) {
 
                     if (fileErrors.length) {
                         errorCount += fileErrors.length;
-                        fileErrors.sort(gpii.lintAll.parseJson.sortByPosition);
+                        fileErrors.sort(fluid.lintAll.parseJson.sortByPosition);
                         fileErrors.forEach(function (jsonParseError) {
                             var errorMessage = filepath + " (" + jsonParseError.line + ":" + jsonParseError.column + "): " + jsonParseError.message;
                             grunt.log.error(errorMessage);
