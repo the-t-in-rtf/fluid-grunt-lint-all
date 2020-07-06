@@ -20,28 +20,27 @@
     },
     "dependencies": {
         "eslint-config-fluid": "1.4.0",
-        "eslint-plugin-markdown": "1.0.1",
+        "eslint-plugin-markdown": "1.0.2",
         "fluid-eslint": "2.10.2",
         "fluid-grunt-eslint": "18.1.2",
         "fluid-grunt-json5lint": "1.0.0",
         "fluid-resolve": "1.3.0",
         "fluid-glob": "1.0.2-dev.20200706T121457Z.549e081.FLUID-6524",
-        "grunt-lintspaces": "0.8.6",
-        "grunt-markdownlint": "2.7.0",
+        "grunt-lintspaces": "0.9.0",
+        "grunt-markdownlint": "3.0.0",
         "infusion": "3.0.0-dev.20180801T212157Z.09bf3d438",
-        "json5": "2.1.1",
-        "@textlint/markdown-to-ast": "6.0.9",
-        "vscode-json-languageservice": "3.4.7"
+        "json5": "2.1.3",
+        "@textlint/markdown-to-ast": "6.1.7",
+        "vscode-json-languageservice": "3.7.0"
     },
     "devDependencies": {
-        "eslint-config-fluid": "1.3.0",
-        "eslint": "6.7.1",
-        "grunt": "1.0.4",
-        "grunt-markdownlint": "2.1.0",
+        "eslint": "7.4.0",
+        "grunt": "1.2.0",
+        "grunt-markdownlint": "3.0.0",
         "node-jqunit": "1.1.8",
-        "nyc": "14.1.1",
-        "remark": "9.0.0",
-        "rimraf": "2.6.2"
+        "nyc": "15.1.0",
+        "remark": "12.0.0",
+        "rimraf": "3.0.2"
     },
     "keywords": [
         "gruntplugin",
