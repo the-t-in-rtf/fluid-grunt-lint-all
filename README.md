@@ -1,10 +1,10 @@
-# gpii-grunt-lint-all
+# fluid-grunt-lint-all
 
-This grunt plugin provides a combined rollup command that runs all GPII lint checks. To add it to your package, use a
-command like:
+This grunt plugin provides a combined rollup command that runs all lint checks typically used in Fluid projects. To add
+it to your package, use a command like:
 
 ```shell
-npm install gpii-grunt-lint-all --save-dev
+npm install fluid-grunt-lint-all --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile as shown in the following example:
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
             }
         }
     });
-    grunt.loadNpmTasks("gpii-grunt-lint-all");
+    grunt.loadNpmTasks("fluid-grunt-lint-all");
     grunt.registerTask("lint", "Perform all standard lint checks.", ["lint-all"]);
 
     grunt.registerTask("default", ["lint"]);
@@ -41,7 +41,7 @@ module.exports = function (grunt) {
             }
         }
     });
-    grunt.loadNpmTasks("gpii-grunt-lint-all");
+    grunt.loadNpmTasks("fluid-grunt-lint-all");
     grunt.registerTask("lint", "Perform all standard lint checks.", ["lint-all"]);
 
     grunt.registerTask("default", ["lint"]);
@@ -70,7 +70,7 @@ documentation, see below:
 | lintspaces:jsonindentation | Check the indentation of JSON files. | [grunt-lintspaces](https://github.com/schorfES/grunt-lintspaces) |
 | lintspaces:newlines        | Check for the presence of a carriage return at the end of a file. | [grunt-lintspaces](https://github.com/schorfES/grunt-lintspaces) |
 | markdownlint               | Check the formatting of Markdown files. | [grunt-markdownlint](https://github.com/sagiegurari/grunt-markdownlint) |
-| mdjsonlint                 | Check the validity and formatting of JSON code blocks within Markdown files. | [gpii-grunt-mdjson-lint](https://github.com/GPII/gpii-grunt-mdjson-lint) |
+| mdjsonlint                 | Check the validity and formatting of JSON code blocks within Markdown files. | (Provided by this package.  See below)) |
 
 Please note that many of the above checks use our standard ESLint configuration, which is available in the
 [eslint-config-fluid](https://github.com/fluid-project/eslint-config-fluid).  You will need to follow the installation
@@ -93,7 +93,7 @@ module.exports = function (grunt) {
             ignores: ["!./tests/intentionally-broken-content/**/*", "!./node_modules", "!./package-lock.json"]
         }
     });
-    grunt.loadNpmTasks("gpii-grunt-lint-all");
+    grunt.loadNpmTasks("fluid-grunt-lint-all");
     grunt.registerTask("lint", "Perform all standard lint checks.", ["lint-all"]);
 
     grunt.registerTask("default", ["lint"]);
@@ -106,3 +106,53 @@ merging will completely replace the defaults if you set a custom `ignores` setti
 content that corresponds to one of the file types in `sources` (`js`, `json`, etc.), you're better off adding your
 pattern(s) to a file-type-specific property.  If you need to change the global `ignores` option, you will need to
 replicate any default rules (such as `!/package-lock.json`) in your custom `ignores` value.
+
+## Tasks
+
+This package provides a few key tasks.
+
+### json-eslint
+
+This task inspects all JSON(5) as though it were enclosed in a simple javascript fixture.  This does not check for
+validity, but instead checks things like indentation and other code conventions.
+
+### json-parser
+
+This tasks uses VSCode's JSON language parsing service to attempt to parse JSON files, and to return information about
+the location of any invalid JSON.
+
+### mdjsonlint
+
+This task uses [markdown-to-ast](https://github.com/textlint/textlint/tree/master/packages/markdown-to-ast) to extract
+all code blocks within markdown content.  Only fenced code blocks tagged with the `json` or `json5` language will be
+linted:
+
+````markdown
+The following will be scanned (and report an error):
+
+```json
+{
+  key: "not quoted"
+}
+```
+
+The following will be scanned (and will not report an error):
+
+```json5
+{
+    key: "not quoted"
+}
+```
+
+The following will not be scanned:
+
+```snippet
+someOperation(<garbage in>) => <garbage out>
+```
+````
+
+Each code block is linted by attempting to parse it using either `JSON.parse`, or the `JSON5.parse` method provided by
+[the `json5` library](https://github.com/json5/json5).  Errors are caught and converted to a common format that includes
+the information needed to identify which file, line number and column number are associated with the error.  Note that
+the first failure in a single fenced code block may prevent you from seeing subsequent errors in the same fenced code
+block.

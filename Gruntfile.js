@@ -1,8 +1,8 @@
 /*
 
-    grunt-gpii-grunt-lint-all
+    fluid-grunt-lint-all
 
-    https://github.com/GPII/gpii-grunt-lint-all
+    https://github.com/fluid-project/fluid-grunt-lint-all
 
     Copyright (c) 2018 Raising the Floor International.
 
@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         lintAll: {
             sources: {
                 js:    ["tasks/*.js", "tests/**/*.js", "./*.js", "!tests/fixtures/js/bad.js"],
-                md:    [ "./*.md", "tests/**/*.md", "!tests/fixtures/md/bad.md"],
+                md:    [ "./*.md", "tests/**/*.md", "!tests/fixtures/md/bad.md", "!tests/fixtures/md/badJson5.md"],
                 json:  ["./*.json", "./.*.json", "tests/**/*.json", "!tests/fixtures/json/bad.json"],
                 json5: ["./*.json5", "tests/**/*.json5", "!tests/fixtures/json5/bad.json5", "!tests/fixtures/json5/dangling-comma.json5"],
                 other: ["./.*"]
