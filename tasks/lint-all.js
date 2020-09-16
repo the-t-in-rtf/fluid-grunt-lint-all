@@ -25,9 +25,13 @@ fluid.grunt.lintAll.defaults = {
         }
     },
     eslint: {
+        options: {
+            format: fluid.module.resolvePath("%fluid-grunt-lint-all/formatters/stylish/stylish")
+        },
         md: {
             options: {
-                configFile: fluid.module.resolvePath("%fluid-grunt-lint-all/.eslintrc-md.json")
+                configFile: fluid.module.resolvePath("%fluid-grunt-lint-all/.eslintrc-md.json"),
+                useEslintrc: false
             }
         }
     },
@@ -211,7 +215,7 @@ fluid.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
 module.exports = function (grunt) {
     fluid.grunt.lintAll.fixGruntTaskLoading(grunt);
 
-    grunt.loadNpmTasksProperly("fluid-grunt-eslint");
+    grunt.loadNpmTasksProperly("grunt-eslint");
     grunt.loadNpmTasksProperly("fluid-grunt-json5lint");
     grunt.loadNpmTasksProperly("grunt-markdownlint");
     grunt.loadNpmTasksProperly("grunt-lintspaces");

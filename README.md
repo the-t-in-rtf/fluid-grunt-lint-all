@@ -62,7 +62,7 @@ documentation, see below:
 | Task                       | Description | Documentation |
 | -------------------------- | ----------- | ------------- |
 | eslint                     | Run both the `eslint:js` and `eslint:md` tasks (see below). | See below. |
-| eslint:js                  | Check the validity and formatting of Javascript files. | [fluid-grunt-eslint](https://github.com/fluid-project/fluid-grunt-eslint) |
+| eslint:js                  | Check the validity and formatting of Javascript files. | [grunt-eslint](https://github.com/sindresorhus/grunt-eslint) |
 | eslint:md                  | Check the validity and formatting of Javascript code blocks in Markdown files. | [eslint-plugin-markdown](https://github.com/eslint/eslint-plugin-markdown) |
 | json5lint                  | Check the validity of JSON5 files. | [fluid-grunt-json5lint](https://github.com/fluid-project/fluid-grunt-json5lint) |
 | jsonlint                   | Check the validity and formatting of JSON files. | [grunt-jsonlint](https://github.com/brandonramirez/grunt-jsonlint) |
@@ -156,3 +156,11 @@ Each code block is linted by attempting to parse it using either `JSON.parse`, o
 the information needed to identify which file, line number and column number are associated with the error.  Note that
 the first failure in a single fenced code block may prevent you from seeing subsequent errors in the same fenced code
 block.
+
+## Third Party Software included
+
+This is a list of publicly available software that is redistributed with this package:
+
+### MIT License
+
+* [stylish formatter based on stylish formatter from eslint v7.8.1](https://github.com/eslint/eslint/blob/v7.8.1/lib/cli-engine/formatters/stylish.js)

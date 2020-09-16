@@ -30,7 +30,8 @@ module.exports = function (grunt) {
                     rules: {
                         "eol-last": "off",
                         "strict": "off",
-                        "no-undef": "off"
+                        "no-undef": "off",
+                        "indent": "off"
                     }
                 }
             },
