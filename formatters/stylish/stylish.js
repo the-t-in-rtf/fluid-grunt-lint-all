@@ -1,6 +1,8 @@
 /*
  * This file was forked from https://github.com/eslint/eslint/blob/v7.8.1/lib/cli-engine/formatters/stylish.js
  * With a single modifcation on line 105 to output the number of files checked when all pass.
+ *
+ * TODO: When https://github.com/eslint/eslint/issues/13725 is addressed, this fork can be removed.
  */
 
 /**
