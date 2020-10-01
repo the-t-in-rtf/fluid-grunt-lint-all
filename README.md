@@ -48,6 +48,67 @@ module.exports = function (grunt) {
 };
 ```
 
+## Customizing configurations
+
+Linting configurations can be customized by providing own options in `Gruntfile.js`.
+
+```javascript
+module.exports = function (grunt) {
+    grunt.config.init({
+        eslint: {
+            js: {
+                options: {
+                    rules: {
+                        "eol-last": "off",
+                        "strict": "off",
+                        "no-undef": "off"
+                    }
+                }
+            },
+            md: {
+                options: {
+                    rules: {
+                        semi: "off"
+                    }
+                }
+            }
+        },
+        json5lint: {
+            options: {
+                enableJSON5: true
+            }
+        },
+        lintspaces: {
+            newlines: {
+                options: {
+                    newline: false
+                }
+            },
+            jsonindentation: {
+                options: {
+                    indentation: false
+                }
+            }
+        },
+        markdownlint: {
+            options: {
+                config: {
+                    "first-header-h1": false,
+                    "first-line-h1": false
+                }
+            }
+        },
+        "json-eslint": {
+            options: {
+                "rules": {
+                    "comma-dangle": "off"
+                }
+            }
+        }
+    });
+};
+```
+
 ## Running the Checks
 
 Once you have installed the plugin and updated your `Gruntfile.js`, you should be able to run the `lint-all` command from
