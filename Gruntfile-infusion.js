@@ -11,13 +11,13 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         lintAll: {
-            ignore: ["!package-lock.json", "!./node_modules/!infusion/**/*", "!./reports/**/*", "!./coverage/**/*", "!./build/**/*", "!.DS_Store", "!*~"],
+            ignore: ["!./checkouts/infusion/package-lock.json", "!./node_modules/!infusion/**/*", "!./node_modules/reports/**/*", "!./checkouts/infusion/coverage/**/*", "!./checkouts/infusion/build/**/*", "!./checkouts/infusion/.DS_Store", "!./checkouts/infusion/*~"],
 
             sources: {
-                md: ["./node_modules/infusion/**/*.md", "!./node_modules/infusion/src/**/lib/**/*.md", "!./node_modules/infusion/demos/**/lib/**/*.md", "!./node_modules/infusion/tests/**/lib/**/*.md"],
-                js: ["./node_modules/infusion/**/*.js", "!./node_modules/infusion/src/**/lib/**/*.js", "!./node_modules/infusion/demos/**/lib/**/*.js", "!./node_modules/infusion/dist/**/*.js", "!./node_modules/infusion/tests/**/lib/**/*.js", "!./node_modules/infusion/tests/**/infusion-1.5.js"],
-                json: ["./node_modules/infusion/**/*.json", "./node_modules/infusion/.nycrc", "./node_modules/infusion/src/thirdPartyDependencies.json", "!./node_modules/infusion/src/lib/**/*.json", "!./node_modules/infusion/dist/**/*.json"],
-                other: ["./node_modules/infusion/**/.*"]
+                md: ["./checkouts/infusion/**/*.md", "!./checkouts/infusion/src/**/lib/**/*.md", "!./checkouts/infusion/demos/**/lib/**/*.md", "!./checkouts/infusion/tests/**/lib/**/*.md"],
+                js: ["./checkouts/infusion/**/*.js", "!./checkouts/infusion/src/**/lib/**/*.js", "!./checkouts/infusion/demos/**/lib/**/*.js", "!./checkouts/infusion/dist/**/*.js", "!./checkouts/infusion/tests/**/lib/**/*.js", "!./checkouts/infusion/tests/**/infusion-1.5.js"],
+                json: ["./checkouts/infusion/**/*.json", "./checkouts/infusion/.nycrc", "./checkouts/infusion/src/thirdPartyDependencies.json", "!./checkouts/infusion/src/lib/**/*.json", "!./checkouts/infusion/dist/**/*.json"],
+                other: ["./checkouts/infusion/**/.*"]
             }
         }
     });

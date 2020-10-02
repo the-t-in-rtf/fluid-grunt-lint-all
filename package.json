@@ -16,9 +16,13 @@
     },
     "license": "BSD-3-Clause",
     "scripts": {
-        "test": "node node_modules/nyc/bin/nyc.js node tests/lint-all-tests.js"
+        "test": "node node_modules/nyc/bin/nyc.js node tests/lint-all-tests.js",
+        "lint-infusion": "npm run lint-infusion:prep && npm run lint-infusion:lint",
+        "lint-infusion:prep": "rimraf checkouts && mkdirp checkouts && git clone https://github.com/fluid-project/infusion checkouts/infusion",
+        "lint-infusion:lint": "npx grunt --gruntfile Gruntfile-infusion.js lint"
     },
     "dependencies": {
+        "eslint": "6.8.0",
         "eslint-config-fluid": "1.4.0",
         "eslint-plugin-markdown": "1.0.2",
         "fluid-eslint": "2.10.2",
@@ -34,7 +38,6 @@
         "vscode-json-languageservice": "3.7.0"
     },
     "devDependencies": {
-        "eslint": "7.4.0",
         "grunt": "1.2.0",
         "node-jqunit": "1.1.8",
         "nyc": "15.1.0",

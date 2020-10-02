@@ -36,4 +36,4 @@ jobs:
         run: npm test
 
       - name: Lint Infusion
-        run: npx grunt --gruntfile Gruntfile-infusion.js lint
+        run: npm run lint-infusion
