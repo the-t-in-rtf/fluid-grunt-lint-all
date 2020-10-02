@@ -15,6 +15,8 @@ fluid.grunt.lintAll.defaults = {
             js: [],
             json: [],
             json5: [],
+            css: [],
+            scss: [],
             other: []
         },
         ignore: ["!package-lock.json", "!./node_modules/**/*", "!./reports/**/*", "!./coverage/**/*", "!./build/**/*", "!.DS_Store", "!*~"],
@@ -88,11 +90,16 @@ fluid.grunt.lintAll.defaults = {
                 "trailing-comma": "off"
             }
         }
+    },
+    stylelint: {
+        options: {
+            configFile: fluid.module.resolvePath("%fluid-grunt-lint-all/.stylelintrc")
+        }
     }
 };
 
 // The full list of checks to configure on startup, and to run when the `lint-all` task is run.
-fluid.grunt.lintAll.allChecks = ["eslint", "json-parser", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces"];
+fluid.grunt.lintAll.allChecks = ["eslint", "json-parser", "json5lint", "markdownlint", "mdjsonlint", "json-eslint", "lintspaces", "stylelint"];
 
 /**
  *
@@ -160,6 +167,9 @@ fluid.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
             },
             "json-eslint": {
                 src: ["<%= lintAll.expanded.sources.json %>", "<%= lintAll.expanded.sources.json5 %>"]
+            },
+            stylelint: {
+                src: ["<%= lintAll.expanded.sources.css %>", "<%= lintAll.expanded.sources.scss %>"]
             }
         });
     }
@@ -195,6 +205,9 @@ fluid.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
             },
             "json-eslint": {
                 src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.json %>", "<%= lintAll.sources.json5 %>"]
+            },
+            stylelint: {
+                src: ["<%= lintAll.ignore %>", "<%= lintAll.sources.css %>", "<%= lintAll.sources.scss %>"]
             }
         });
     }
@@ -215,6 +228,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasksProperly("fluid-grunt-json5lint");
     grunt.loadNpmTasksProperly("grunt-markdownlint");
     grunt.loadNpmTasksProperly("grunt-lintspaces");
+    grunt.loadNpmTasksProperly("grunt-stylelint");
 
     var initialForce = grunt.option("force") || false;
 

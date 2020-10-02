@@ -53,8 +53,8 @@ fluid.tests.grunt.lintAll.runTests = function (testDefs) {
 
 fluid.defaults("fluid.tests.grunt.lintAll.runner", {
     gradeNames: ["fluid.component"],
-    allTasks:          ["eslint:js", "eslint:md", "json-eslint", "json-parser", "json5lint", "lintspaces:jsonindentation", "lintspaces:newlines", "markdownlint", "mdjsonlint", "lint-all"],
-    configurableTasks: ["eslint:js", "eslint:md", "json-eslint", "json5lint", "lintspaces:jsonindentation", "lintspaces:newlines", "markdownlint", "mdjsonlint", "lint-all"],
+    allTasks:          ["eslint:js", "eslint:md", "json-eslint", "json-parser", "json5lint", "lintspaces:jsonindentation", "lintspaces:newlines", "markdownlint", "mdjsonlint", "stylelint", "lint-all"],
+    configurableTasks: ["eslint:js", "eslint:md", "json-eslint", "json5lint", "lintspaces:jsonindentation", "lintspaces:newlines", "markdownlint", "mdjsonlint", "stylelint", "lint-all"],
     testDefs: {
         good: {
             message: "Valid content should be reported as valid.",

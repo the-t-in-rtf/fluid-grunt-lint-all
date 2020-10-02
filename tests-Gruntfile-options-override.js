@@ -21,6 +21,8 @@ module.exports = function (grunt) {
                 json:  ["./tests/fixtures/json/good.json"],
                 json5: ["./tests/fixtures/json5/dangling-comma.json5"],
                 md:    ["./tests/fixtures/md/bad.md"],
+                css:   ["./tests/fixtures/css/good.css"],
+                scss:  ["./tests/fixtures/scss/good.scss"],
                 other: ["./tests/fixtures/other/.bad"]
             }
         },
@@ -72,6 +74,11 @@ module.exports = function (grunt) {
                 "rules": {
                     "comma-dangle": "off"
                 }
+            }
+        },
+        stylelint: {
+            rules: {
+                "declaration-block-trailing-semicolon": "always"
             }
         }
     });
