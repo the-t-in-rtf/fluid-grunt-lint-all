@@ -30,7 +30,10 @@ jobs:
         run: npm install
 
       - name: Lint Code
-        run: $(npm bin)/grunt lint
+        run: npx grunt lint
 
       - name: Node Tests
         run: npm test
+
+      - name: Lint Infusion
+        run: npx grunt --gruntfile Gruntfile-infusion.js lint
