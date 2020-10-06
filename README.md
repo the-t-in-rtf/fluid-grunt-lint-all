@@ -48,7 +48,35 @@ module.exports = function (grunt) {
 };
 ```
 
-## Customizing configurations
+## Running the Checks
+
+Once you have installed the plugin and updated your `Gruntfile.js`, you should be able to run the `lint-all` command from
+the root of your repository, as in `grunt lint-all`.
+
+## Configuring Individual Checks
+
+This plugin is a rollup that calls a range of individual checks.  All checks support the standard `src` array that
+defines which material should be linted. For more information about the individual checks and links to their
+documentation, see below:
+
+| Task                       | Description | Documentation |
+| -------------------------- | ----------- | ------------- |
+| eslint                     | Run both the `eslint:js` and `eslint:md` tasks (see below). | See below. |
+| eslint:js                  | Check the validity and formatting of Javascript files. | [fluid-grunt-eslint](https://github.com/fluid-project/fluid-grunt-eslint) |
+| eslint:md                  | Check the validity and formatting of Javascript code blocks in Markdown files. | [eslint-plugin-markdown](https://github.com/eslint/eslint-plugin-markdown) |
+| json5lint                  | Check the validity of JSON5 files. | [fluid-grunt-json5lint](https://github.com/fluid-project/fluid-grunt-json5lint) |
+| jsonlint                   | Check the validity and formatting of JSON files. | [grunt-jsonlint](https://github.com/brandonramirez/grunt-jsonlint) |
+| lintspaces                 | Check for trailing carriage returns and indentation. | [grunt-lintspaces](https://github.com/schorfES/grunt-lintspaces) |
+| lintspaces:jsonindentation | Check the indentation of JSON files. | [grunt-lintspaces](https://github.com/schorfES/grunt-lintspaces) |
+| lintspaces:newlines        | Check for the presence of a carriage return at the end of a file. | [grunt-lintspaces](https://github.com/schorfES/grunt-lintspaces) |
+| markdownlint               | Check the formatting of Markdown files. | [grunt-markdownlint](https://github.com/sagiegurari/grunt-markdownlint) |
+| mdjsonlint                 | Check the validity and formatting of JSON code blocks within Markdown files. | (Provided by this package.  See below)) |
+
+Please note that many of the above checks use our standard ESLint configuration, which is available in the
+[eslint-config-fluid](https://github.com/fluid-project/eslint-config-fluid).  You will need to follow the installation
+instructions in that package before you run many of the above checks.
+
+### Customizing Configurations
 
 Linting configurations can be customized by providing own options in `Gruntfile.js`.
 
@@ -108,34 +136,6 @@ module.exports = function (grunt) {
     });
 };
 ```
-
-## Running the Checks
-
-Once you have installed the plugin and updated your `Gruntfile.js`, you should be able to run the `lint-all` command from
-the root of your repository, as in `grunt lint-all`.
-
-## Configuring Individual Checks
-
-This plugin is a rollup that calls a range of individual checks.  All checks support the standard `src` array that
-defines which material should be linted.  For more information about the individual checks and links to their
-documentation, see below:
-
-| Task                       | Description | Documentation |
-| -------------------------- | ----------- | ------------- |
-| eslint                     | Run both the `eslint:js` and `eslint:md` tasks (see below). | See below. |
-| eslint:js                  | Check the validity and formatting of Javascript files. | [fluid-grunt-eslint](https://github.com/fluid-project/fluid-grunt-eslint) |
-| eslint:md                  | Check the validity and formatting of Javascript code blocks in Markdown files. | [eslint-plugin-markdown](https://github.com/eslint/eslint-plugin-markdown) |
-| json5lint                  | Check the validity of JSON5 files. | [fluid-grunt-json5lint](https://github.com/fluid-project/fluid-grunt-json5lint) |
-| jsonlint                   | Check the validity and formatting of JSON files. | [grunt-jsonlint](https://github.com/brandonramirez/grunt-jsonlint) |
-| lintspaces                 | Check for trailing carriage returns and indentation. | [grunt-lintspaces](https://github.com/schorfES/grunt-lintspaces) |
-| lintspaces:jsonindentation | Check the indentation of JSON files. | [grunt-lintspaces](https://github.com/schorfES/grunt-lintspaces) |
-| lintspaces:newlines        | Check for the presence of a carriage return at the end of a file. | [grunt-lintspaces](https://github.com/schorfES/grunt-lintspaces) |
-| markdownlint               | Check the formatting of Markdown files. | [grunt-markdownlint](https://github.com/sagiegurari/grunt-markdownlint) |
-| mdjsonlint                 | Check the validity and formatting of JSON code blocks within Markdown files. | (Provided by this package.  See below)) |
-
-Please note that many of the above checks use our standard ESLint configuration, which is available in the
-[eslint-config-fluid](https://github.com/fluid-project/eslint-config-fluid).  You will need to follow the installation
-instructions in that package before you run many of the above checks.
 
 ## Global Ignores
 
