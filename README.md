@@ -56,7 +56,7 @@ the root of your repository, as in `grunt lint-all`.
 ## Configuring Individual Checks
 
 This plugin is a rollup that calls a range of individual checks.  All checks support the standard `src` array that
-defines which material should be linted.  For more information about the individual checks and links to their
+defines which material should be linted. For more information about the individual checks and links to their
 documentation, see below:
 
 | Task                       | Description | Documentation |
@@ -75,6 +75,67 @@ documentation, see below:
 Please note that many of the above checks use our standard ESLint configuration, which is available in the
 [eslint-config-fluid](https://github.com/fluid-project/eslint-config-fluid).  You will need to follow the installation
 instructions in that package before you run many of the above checks.
+
+### Customizing Configurations
+
+Linting configurations can be customized by providing your own options in `Gruntfile.js` as shown in this example:
+
+```javascript
+module.exports = function (grunt) {
+    grunt.config.init({
+        eslint: {
+            js: {
+                options: {
+                    rules: {
+                        "eol-last": "off",
+                        "strict": "off",
+                        "no-undef": "off"
+                    }
+                }
+            },
+            md: {
+                options: {
+                    rules: {
+                        semi: "off"
+                    }
+                }
+            }
+        },
+        json5lint: {
+            options: {
+                enableJSON5: true
+            }
+        },
+        lintspaces: {
+            newlines: {
+                options: {
+                    newline: false
+                }
+            },
+            jsonindentation: {
+                options: {
+                    indentation: false
+                }
+            }
+        },
+        markdownlint: {
+            options: {
+                config: {
+                    "first-header-h1": false,
+                    "first-line-h1": false
+                }
+            }
+        },
+        "json-eslint": {
+            options: {
+                "rules": {
+                    "comma-dangle": "off"
+                }
+            }
+        }
+    });
+};
+```
 
 ## Global Ignores
 
