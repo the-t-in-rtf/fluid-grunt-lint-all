@@ -78,7 +78,7 @@ instructions in that package before you run many of the above checks.
 
 ### Customizing Configurations
 
-Linting configurations can be customized by providing own options in `Gruntfile.js`.
+Linting configurations can be customized by providing your own options in `Gruntfile.js` as shown in this example:
 
 ```javascript
 module.exports = function (grunt) {
