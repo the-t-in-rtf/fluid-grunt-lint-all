@@ -93,7 +93,7 @@ fluid.grunt.lintAll.defaults = {
     },
     stylelint: {
         options: {
-            configFile: fluid.module.resolvePath("%fluid-grunt-lint-all/.stylelintrc")
+            configFile: fluid.module.resolvePath("%fluid-grunt-lint-all/.stylelintrc.json")
         }
     }
 };
