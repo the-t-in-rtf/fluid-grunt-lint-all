@@ -56,13 +56,13 @@ the root of your repository, as in `grunt lint-all`.
 ## Configuring Individual Checks
 
 This plugin is a rollup that calls a range of individual checks.  All checks support the standard `src` array that
-defines which material should be linted.  For more information about the individual checks and links to their
+defines which material should be linted. For more information about the individual checks and links to their
 documentation, see below:
 
 | Task                       | Description | Documentation |
 | -------------------------- | ----------- | ------------- |
 | eslint                     | Run both the `eslint:js` and `eslint:md` tasks (see below). | See below. |
-| eslint:js                  | Check the validity and formatting of Javascript files. | [fluid-grunt-eslint](https://github.com/fluid-project/fluid-grunt-eslint) |
+| eslint:js                  | Check the validity and formatting of Javascript files. | [grunt-eslint](https://github.com/sindresorhus/grunt-eslint) |
 | eslint:md                  | Check the validity and formatting of Javascript code blocks in Markdown files. | [eslint-plugin-markdown](https://github.com/eslint/eslint-plugin-markdown) |
 | json5lint                  | Check the validity of JSON5 files. | [fluid-grunt-json5lint](https://github.com/fluid-project/fluid-grunt-json5lint) |
 | jsonlint                   | Check the validity and formatting of JSON files. | [grunt-jsonlint](https://github.com/brandonramirez/grunt-jsonlint) |
@@ -75,6 +75,67 @@ documentation, see below:
 Please note that many of the above checks use our standard ESLint configuration, which is available in the
 [eslint-config-fluid](https://github.com/fluid-project/eslint-config-fluid).  You will need to follow the installation
 instructions in that package before you run many of the above checks.
+
+### Customizing Configurations
+
+Linting configurations can be customized by providing your own options in `Gruntfile.js` as shown in this example:
+
+```javascript
+module.exports = function (grunt) {
+    grunt.config.init({
+        eslint: {
+            js: {
+                options: {
+                    rules: {
+                        "eol-last": "off",
+                        "strict": "off",
+                        "no-undef": "off"
+                    }
+                }
+            },
+            md: {
+                options: {
+                    rules: {
+                        semi: "off"
+                    }
+                }
+            }
+        },
+        json5lint: {
+            options: {
+                enableJSON5: true
+            }
+        },
+        lintspaces: {
+            newlines: {
+                options: {
+                    newline: false
+                }
+            },
+            jsonindentation: {
+                options: {
+                    indentation: false
+                }
+            }
+        },
+        markdownlint: {
+            options: {
+                config: {
+                    "first-header-h1": false,
+                    "first-line-h1": false
+                }
+            }
+        },
+        "json-eslint": {
+            options: {
+                "rules": {
+                    "comma-dangle": "off"
+                }
+            }
+        }
+    });
+};
+```
 
 ## Global Ignores
 
@@ -156,3 +217,11 @@ Each code block is linted by attempting to parse it using either `JSON.parse`, o
 the information needed to identify which file, line number and column number are associated with the error.  Note that
 the first failure in a single fenced code block may prevent you from seeing subsequent errors in the same fenced code
 block.
+
+## Third Party Software included
+
+This is a list of publicly available software that is redistributed with this package:
+
+### MIT License
+
+* [stylish formatter based on stylish formatter from eslint v7.8.1](https://github.com/eslint/eslint/blob/v7.8.1/lib/cli-engine/formatters/stylish.js)

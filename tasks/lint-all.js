@@ -27,9 +27,17 @@ fluid.grunt.lintAll.defaults = {
         }
     },
     eslint: {
+        options: {
+            // TODO: After https://github.com/eslint/eslint/issues/13725 has been addressed, can use the default stylish
+            // formatter instead.
+            format: fluid.module.resolvePath("%fluid-grunt-lint-all/formatters/stylish/stylish")
+        },
         md: {
             options: {
-                configFile: fluid.module.resolvePath("%fluid-grunt-lint-all/.eslintrc-md.json")
+                configFile: fluid.module.resolvePath("%fluid-grunt-lint-all/.eslintrc-md.json"),
+                // TODO: When https://github.com/fluid-project/fluid-grunt-lint-all/issues/16 is addressed
+                // we should be able to use eslint file to configure the linting options for Markdown files.
+                useEslintrc: false
             }
         }
     },
@@ -224,7 +232,7 @@ fluid.grunt.lintAll.mergeAndExpandOptions = function (grunt) {
 module.exports = function (grunt) {
     fluid.grunt.lintAll.fixGruntTaskLoading(grunt);
 
-    grunt.loadNpmTasksProperly("fluid-grunt-eslint");
+    grunt.loadNpmTasksProperly("grunt-eslint");
     grunt.loadNpmTasksProperly("fluid-grunt-json5lint");
     grunt.loadNpmTasksProperly("grunt-markdownlint");
     grunt.loadNpmTasksProperly("grunt-lintspaces");
