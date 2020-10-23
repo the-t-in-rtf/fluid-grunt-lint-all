@@ -1,7 +1,7 @@
 {
     "name": "fluid-grunt-lint-all",
     "description": "A Grunt plugin to run all Fluid lint checks.",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "homepage": "https://github.com/fluid-project/fluid-grunt-lint-all",
     "author": {
         "name": "Tony Atkins",
