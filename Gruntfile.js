@@ -18,6 +18,8 @@ module.exports = function (grunt) {
                 md:    [ "./*.md", "tests/**/*.md", "!tests/fixtures/md/bad.md", "!tests/fixtures/md/badJson5.md"],
                 json:  ["./*.json", "./.*.json", "tests/**/*.json", "!tests/fixtures/json/bad.json"],
                 json5: ["./*.json5", "tests/**/*.json5", "!tests/fixtures/json5/bad.json5", "!tests/fixtures/json5/dangling-comma.json5"],
+                css:  ["./*.css", "tests/**/*.css", "!tests/fixtures/css/bad.css"],
+                scss:  ["./*.scss", "tests/**/*.scss", "!tests/fixtures/scss/bad.scss"],
                 other: ["./.*"]
             }
         }

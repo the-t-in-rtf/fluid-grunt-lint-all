@@ -23,6 +23,8 @@ module.exports = function (grunt) {
                 json:  ["./tests/fixtures/json/*.json", "!./tests/fixtures/json/bad.json"],
                 json5: ["./tests/fixtures/json5/*.json5", "!./tests/fixtures/json5/bad.json5", "!./tests/fixtures/json5/dangling-comma.json5"],
                 md:    ["./tests/fixtures/md/*.md", "!./tests/fixtures/md/bad.md", "!./tests/fixtures/md/badJson5.md"],
+                css:   ["./tests/fixtures/css/*.css", "!./tests/fixtures/css/bad.css"],
+                scss:  ["./tests/fixtures/scss/*.scss", "!./tests/fixtures/scss/bad.scss"],
                 other: ["./tests/fixtures/other/.*", "!./tests/fixtures/other/.bad"]
             }
         }
