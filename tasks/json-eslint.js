@@ -7,7 +7,7 @@
 /* eslint-env node */
 "use strict";
 var fluid  = require("infusion");
-var eslint = require("fluid-eslint");
+var eslint = require("eslint");
 
 module.exports = function (grunt) {
     // Wrap the JSON(5) content in minimal valid Javascript code so that we can test it using ESLint.
